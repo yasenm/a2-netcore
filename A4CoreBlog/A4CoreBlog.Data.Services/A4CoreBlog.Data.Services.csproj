@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\A4CoreBlog.Data.Models\A4CoreBlog.Data.Models.csproj" />
+    <ProjectReference Include="..\A4CoreBlog.Data\A4CoreBlog.Data.csproj" />
+  </ItemGroup>
+
+</Project>
