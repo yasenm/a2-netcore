@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using A4CoreBlog.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Serialization;
+using A4CoreBlog.Data.Infrastructure.Mapping;
+using A4CoreBlog.Data.Seed;
 
 namespace A4CoreBlog_Web
 {
@@ -38,6 +40,11 @@ namespace A4CoreBlog_Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Automapper configuration initialization
+            AutoMapperConfig.Init();
+            
+            services.AddTransient<BlogSystemSeedData>();
+
             // Add framework services.
             services.AddSingleton(Configuration);
             services.AddDbContext<BlogSystemContext>();
@@ -64,7 +71,7 @@ namespace A4CoreBlog_Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, BlogSystemSeedData seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -82,6 +89,8 @@ namespace A4CoreBlog_Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseIdentity();
+
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -98,6 +107,8 @@ namespace A4CoreBlog_Web
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            seeder.SeedData().Wait();
         }
     }
 }

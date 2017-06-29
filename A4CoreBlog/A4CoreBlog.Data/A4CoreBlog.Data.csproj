@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\A4CoreBlog.Common\A4CoreBlog.Common.csproj" />
     <ProjectReference Include="..\A4CoreBlog.Data.Models\A4CoreBlog.Data.Models.csproj" />
   </ItemGroup>
 

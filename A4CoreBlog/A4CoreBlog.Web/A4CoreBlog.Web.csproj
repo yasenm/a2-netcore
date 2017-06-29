@@ -23,7 +23,11 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\A4CoreBlog.Common\A4CoreBlog.Common.csproj" />
+    <ProjectReference Include="..\A4CoreBlog.Data.Infrastructure\A4CoreBlog.Data.Infrastructure.csproj" />
+    <ProjectReference Include="..\A4CoreBlog.Data.Models\A4CoreBlog.Data.Models.csproj" />
     <ProjectReference Include="..\A4CoreBlog.Data.Services\A4CoreBlog.Data.Services.csproj" />
+    <ProjectReference Include="..\A4CoreBlog.Data.ViewModels\A4CoreBlog.Data.ViewModels.csproj" />
     <ProjectReference Include="..\A4CoreBlog.Data\A4CoreBlog.Data.csproj" />
   </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
