@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using A4CoreBlog.Data.Models;
+using A4CoreBlog.Data.ViewModels;
+using AutoMapper;
 
 namespace A4CoreBlog.Data.Infrastructure.Mapping
 {
@@ -8,7 +10,7 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
         {
             Mapper.Initialize(cfg =>
             {
-                //cfg.CreateMap<CoreAppModel, CoreAppViewModel>()
+                cfg.CreateMap<Blog, BasicBlogViewModel>().ReverseMap();
                 //// Custom field mapping tested and working !! :)
                 //    .ForMember(dest => dest.Description123, opt => opt.MapFrom(src => src.Description))
                 //    .ReverseMap();

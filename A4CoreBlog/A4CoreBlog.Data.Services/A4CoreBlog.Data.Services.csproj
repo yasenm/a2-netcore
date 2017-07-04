@@ -5,7 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\A4CoreBlog.Data.Common\A4CoreBlog.Data.Common.csproj" />
+    <ProjectReference Include="..\A4CoreBlog.Data.Infrastructure\A4CoreBlog.Data.Infrastructure.csproj" />
     <ProjectReference Include="..\A4CoreBlog.Data.Models\A4CoreBlog.Data.Models.csproj" />
+    <ProjectReference Include="..\A4CoreBlog.Data.ViewModels\A4CoreBlog.Data.ViewModels.csproj" />
     <ProjectReference Include="..\A4CoreBlog.Data\A4CoreBlog.Data.csproj" />
   </ItemGroup>
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace A4CoreBlog.Data.UnitOfWork
 {
-    public class BlogSystemData
+    public class BlogSystemData : IBlogSystemData
     {
         private IDictionary<Type, object> repositories;
 
@@ -20,13 +20,11 @@ namespace A4CoreBlog.Data.UnitOfWork
 
         public BlogSystemContext Context { get; set; }
 
-        public IRepository<User> Users
-        {
-            get
-            {
-                return GetRepository<User>();
-            }
-        }
+        public IRepository<User> Users => GetRepository<User>();
+
+        public IRepository<Blog> Blogs => GetDeletableEntityRepository<Blog>();
+
+        public IRepository<Post> Posts => GetDeletableEntityRepository<Post>();
 
         public int SaveChanges()
         {

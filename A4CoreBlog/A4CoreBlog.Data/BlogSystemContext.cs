@@ -26,11 +26,38 @@ namespace A4CoreBlog.Data
             _config = builder.Build();
         }
 
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseSqlServer(_config["ConnectionStrings:DefaultConnection"]);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Ignore<IdentityUserLogin<string>>();
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Blog)
+                .WithOne(b => b.Owner)
+                .HasForeignKey<Blog>(b => b.OwnerId);
+            //modelBuilder.Entity<Blog>()
+            //    .HasOne(u => u.Owner)
+            //    .WithOne(u => u.Blog)
+            //    .HasForeignKey<User>(b => b.BlogId);
+
+            //modelBuilder.Entity<User>()
+            //    .HasMany(u => u.Posts)
+            //    .WithOne(p => p.Author)
+            //    .HasForeignKey(p => p.AuthorId);
+
+            //modelBuilder.Entity<Blog>()
+            //    .HasMany(b => b.Posts)
+            //    .WithOne(p => p.Blog)
+            //    .HasForeignKey(p => p.BlogId);
         }
     }
 }

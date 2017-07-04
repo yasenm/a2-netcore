@@ -1,7 +1,10 @@
-﻿using A4CoreBlog.Common.RandomGenerators;
+﻿using A4CoreBlog.Common;
+using A4CoreBlog.Common.RandomGenerators;
 using A4CoreBlog.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace A4CoreBlog.Data.Seed
@@ -19,10 +22,23 @@ namespace A4CoreBlog.Data.Seed
 
         public async Task SeedData()
         {
-            //_context.Database.EnsureDeleted();
-            await SeedUsers();
-            if (_context.Database.EnsureCreated())
+            await _context.Database.EnsureDeletedAsync();
+            if (await _context.Database.EnsureCreatedAsync())
             {
+                await SeedRoles();
+                await SeedUsers();
+                await SeedBlogs();
+                await SeedPosts();
+            }
+        }
+
+        private async Task SeedRoles()
+        {
+            if (!_context.Roles.Any())
+            {
+                await _context.Roles.AddAsync(new IdentityRole(GlobalConstants.AdminRole));
+                await _context.Roles.AddAsync(new IdentityRole(GlobalConstants.RegularUser));
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -30,27 +46,91 @@ namespace A4CoreBlog.Data.Seed
         {
             if (!_userManager.Users.Any())
             {
-                if (await _userManager.FindByEmailAsync("admin@core.com") == null)
+                await SeedAdmin();
+                await SeedOtherUsers();
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        private async Task SeedAdmin()
+        {
+            var userEmail = "admin@core.com";
+            var adminUser = new User
+            {
+                UserName = userEmail,
+                Email = userEmail
+            };
+
+            var roles = _context.Roles.ToList();
+            var result = await _userManager.CreateAsync(adminUser, "P@ssw0rd");
+            if (result.Succeeded)
+            {
+                await _userManager.AddClaimAsync(adminUser, new Claim("role", GlobalConstants.AdminRole));
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task SeedOtherUsers()
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                var userEmail = StringGenerator.RandomStringWithoutSpaces(7, 10) + "@core.com";
+                var user = new User
                 {
-                    var user = new User
+                    UserName = userEmail,
+                    Email = userEmail
+                };
+
+                var result = await _userManager.CreateAsync(user, "P@ssw0rd");
+                if (result.Succeeded)
+                {
+                    await _userManager.AddClaimAsync(user, new Claim("role", GlobalConstants.RegularUser));
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task SeedBlogs()
+        {
+            if (!_context.Blogs.Any())
+            {
+                var users = _context.Users.ToList();
+                for (int i = 0; i < users.Count - 1; i++)
+                {
+                    Blog newBlog = new Blog()
                     {
-                        UserName = "admin@core.com",
-                        Email = "admin@core.com",
+                        Description = StringGenerator.RandomStringWithSpaces(200, 400),
+                        Title = StringGenerator.RandomStringWithSpaces(6, 50),
+                        Summary = StringGenerator.RandomStringWithSpaces(80, 100),
+                        OwnerId = users[i].Id
                     };
 
-                    await _userManager.CreateAsync(user, "P@ssw0rd");
+                    await _context.Blogs.AddAsync(newBlog);
                 }
+                await _context.SaveChangesAsync();
+            }
+        }
 
-                for (int i = 0; i < NumberGenerator.RandomNumber(6, 12); i++)
+        private async Task SeedPosts()
+        {
+            if (!_context.Posts.Any())
+            {
+                var users = _context.Users.ToList();
+                var blogs = _context.Blogs.ToList();
+                for (int i = 0; i < NumberGenerator.RandomNumber(6, 7); i++)
                 {
-                    var user = new User
+                    Post newPost = new Post()
                     {
-                        UserName = StringGenerator.RandomStringWithSpaces(4, 20),
-                        Email = StringGenerator.RandomStringWithoutSpaces(2, 7) + "@core.com"
+                        Description = StringGenerator.RandomStringWithSpaces(200, 400),
+                        Title = StringGenerator.RandomStringWithSpaces(6, 50),
+                        Summary = StringGenerator.RandomStringWithSpaces(80, 100),
+                        AuthorId = users[NumberGenerator.RandomNumber(0, users.Count - 1)].Id,
+                        BlogId = blogs[NumberGenerator.RandomNumber(0, blogs.Count - 1)].Id
                     };
 
-                    await _userManager.CreateAsync(user, "P@ssw0rd");
+                    await _context.Posts.AddAsync(newPost);
                 }
+                await _context.SaveChangesAsync();
             }
         }
     }

@@ -15,6 +15,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Serialization;
 using A4CoreBlog.Data.Infrastructure.Mapping;
 using A4CoreBlog.Data.Seed;
+using A4CoreBlog.Data.UnitOfWork;
+using A4CoreBlog.Data.Services.Implementations;
+using A4CoreBlog.Data.Services.Contracts;
 
 namespace A4CoreBlog_Web
 {
@@ -48,6 +51,12 @@ namespace A4CoreBlog_Web
             // Add framework services.
             services.AddSingleton(Configuration);
             services.AddDbContext<BlogSystemContext>();
+
+            services.AddScoped<IBlogSystemContext, BlogSystemContext>();
+            services.AddScoped<IBlogSystemData, BlogSystemData>();
+
+            // internal services
+            services.AddScoped<IBlogService, BlogService>();
 
             services.AddIdentity<User, IdentityRole>(config =>
             {

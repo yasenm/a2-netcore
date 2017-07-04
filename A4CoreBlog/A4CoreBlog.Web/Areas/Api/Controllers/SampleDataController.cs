@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using A4CoreBlog.Data.Models;
+using A4CoreBlog.Data.Services.Contracts;
+using A4CoreBlog.Data.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +15,12 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
+        private IBlogService _blogService;
+
+        public SampleDataController(IBlogService blogService)
+        {
+            _blogService = blogService;
+        }
 
         [HttpGet()]
         public IEnumerable<WeatherForecast> WeatherForecasts()
@@ -23,6 +32,13 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
+        }
+
+        [HttpGet()]
+        public IEnumerable<BasicBlogViewModel> Blogs()
+        {
+            var result = _blogService.GetAll<BasicBlogViewModel>().ToList();
+            return result;
         }
 
         public class WeatherForecast
