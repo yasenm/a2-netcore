@@ -4,9 +4,32 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>@ViewData["Title"] - A4CoreBlog_Web</title>
+
+        <environment names="Development">
+            <link rel="stylesheet" asp-href-include="~/css/*.css" />
+        </environment>
+
+        <environment names="Staging, Production">
+            <link rel="stylesheet" href="~/css/min/site.min.css" />
+        </environment>
+
+        <environment names="Development">
+            <script src="~/js/jquery.js"></script>
+            <script src="~/js/tether.js"></script>
+            <script src="~/js/app.js"></script>
+            <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+            <script asp-src-include="~/js/*.js"></script>
+        </environment>
+
+        <environment names="Staging, Production">
+            <script src="~/js/min/site.min.js"></script>
+        </environment>
     </head>
     <body>
-        @RenderBody()
+        @await Html.PartialAsync("_Navigation")
+        <div class="container container-fluid">
+            @RenderBody()
+        </div>
 
         @RenderSection("scripts", required: false)
     </body>

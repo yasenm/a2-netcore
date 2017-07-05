@@ -43,7 +43,11 @@
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.0",
     "webpack-merge": "4.1.0",
-    "zone.js": "0.8.10"
+    "zone.js": "0.8.10",
+    "gulp": "~3.9.1",
+    "gulp-concat": "~2.6.1",
+    "gulp-cssmin": "~0.2.0",
+    "gulp-uglify": "~3.0.0"
   },
   "devDependencies": {
     "@types/chai": "3.5.2",

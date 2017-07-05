@@ -6,18 +6,18 @@ import { Http } from '@angular/http';
     templateUrl: './fetchdata.component.html'
 })
 export class FetchDataComponent {
-    public forecasts: WeatherForecast[];
+    public blogs: BlogInterface[];
 
     constructor(http: Http, @Inject('ORIGIN_URL') originUrl: string) {
-        http.get(originUrl + '/api/SampleData/WeatherForecasts').subscribe(result => {
-            this.forecasts = result.json() as WeatherForecast[];
+        http.get(originUrl + '/api/sampledata/all').subscribe(result => {
+            this.blogs = result.json() as BlogInterface[];
         });
     }
 }
 
-interface WeatherForecast {
-    dateFormatted: string;
-    temperatureC: number;
-    temperatureF: number;
+interface BlogInterface {
+    description: string;
     summary: string;
+    title: string;
+    id: number;
 }

@@ -22,14 +22,14 @@ namespace A4CoreBlog.Data.Seed
 
         public async Task SeedData()
         {
-            await _context.Database.EnsureDeletedAsync();
-            if (await _context.Database.EnsureCreatedAsync())
-            {
-                await SeedRoles();
-                await SeedUsers();
-                await SeedBlogs();
-                await SeedPosts();
-            }
+            //await _context.Database.EnsureDeletedAsync();
+            //if (await _context.Database.EnsureCreatedAsync())
+            //{
+            //    await SeedRoles();
+            //    await SeedUsers();
+            //    await SeedBlogs();
+            //    await SeedPosts();
+            //}
         }
 
         private async Task SeedRoles()

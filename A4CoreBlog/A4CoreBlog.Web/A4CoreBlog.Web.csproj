@@ -18,9 +18,13 @@
   <ItemGroup>
     <!-- Files not to show in IDE -->
     <None Remove="yarn.lock" />
+    <Compile Remove="bower_components\**" />
+    <Content Remove="bower_components\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="bower_components\**" />
+    <None Remove="bower_components\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\A4CoreBlog.Common\A4CoreBlog.Common.csproj" />

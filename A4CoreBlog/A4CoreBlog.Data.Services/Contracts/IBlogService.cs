@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 
 namespace A4CoreBlog.Data.Services.Contracts
 {
@@ -6,5 +7,6 @@ namespace A4CoreBlog.Data.Services.Contracts
     {
         T Get<T>(int id);
         IQueryable<T> GetAll<T>();
+        Task<bool> Edit<T>(T model);
     }
 }

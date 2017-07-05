@@ -1,0 +1,31 @@
+﻿@model IEnumerable<BasicBlogViewModel>
+
+@foreach (var blogItem in Model.Where(b => b.OwnerId == User.GetUserId()))
+{
+    <div class="jumbotron">
+        <div class="col-md-10">
+            <h1>@blogItem.Title</h1>
+            <h3>@blogItem.Summary</h3>
+        </div>
+        @if (User.GetUserId() == blogItem.OwnerId)
+        {
+            <div class="col-md-2">
+                <a class="btn btn-success"
+                   asp-controller="blog"
+                   asp-action="edit"
+                   asp-area="@GlobalConstants.AdminArea"
+                   asp-route-id="@blogItem.Id">edit</a>
+            </div>
+        }
+    </div>
+}
+
+@foreach (var blogItem in Model.Where(b => b.OwnerId != User.GetUserId()))
+{
+    <div class="jumbotron">
+        <div class="col-md-12">
+            <h1>@blogItem.Title</h1>
+            <h3>@blogItem.Summary</h3>
+        </div>
+    </div>
+}
