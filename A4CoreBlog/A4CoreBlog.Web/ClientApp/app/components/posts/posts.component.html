@@ -1,0 +1,13 @@
+<h1>All posts!!!</h1>
+
+<p>This component demonstrates fetching Posts data from the server.</p>
+
+<p *ngIf="!posts"><em>Loading...</em></p>
+
+<div class='container' *ngIf="posts">
+    <div class="jumbotron" *ngFor="let post of posts">
+        <h1>{{ post.title }}</h1>
+        <h3>{{ post.summary }}</h3>
+        <span class="hidden">{{ post.id }}</span>
+    </div>
+</div>
