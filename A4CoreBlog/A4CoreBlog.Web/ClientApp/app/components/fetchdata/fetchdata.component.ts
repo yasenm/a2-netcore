@@ -9,7 +9,7 @@ export class FetchDataComponent {
     public blogs: BlogInterface[];
 
     constructor(http: Http, @Inject('ORIGIN_URL') originUrl: string) {
-        http.get(originUrl + '/api/sampledata/all').subscribe(result => {
+        http.get(originUrl + '/api/blogs/all').subscribe(result => {
             this.blogs = result.json() as BlogInterface[];
         });
     }

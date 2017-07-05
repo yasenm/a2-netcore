@@ -15,13 +15,13 @@ var paths = {
 paths.bootstrapCss = "./bower_components/bootstrap/dist/css/bootstrap.css";
 paths.bootstrapThemeCss = "./bower_components/bootswatch/superhero/bootstrap.css";
 paths.tetherCss = "./bower_components/tether/dist/css/tether.css";
+paths.siteCss = "./areas/admin/css/site.css";
 
 paths.jqueryJs = "./bower_components/jquery/dist/jquery.js";
 paths.jqueryValidationJs = "./bower_components/jquery-validation/dist/jquery.validate.js";
 paths.jqueryValidationUnobtrusiveJs = "./bower_components/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js";
 paths.bootstrapJs = "./bower_components/bootstrap/dist/js/bootstrap.js";
 paths.bootboxJs = "./bower_components/bootbox.js/bootbox.js";
-//paths.tinymceJs = "./bower_components/tinymce/tinymce.min.js";
 paths.tetherJs = "./bower_components/tether/dist/js/tether.js";
 
 paths.app = "./areas/admin/js/app.js";
@@ -37,7 +37,6 @@ gulp.task("min:js", function () {
         paths.tetherJs,
         paths.bootstrapJs,
         paths.bootboxJs,
-        //paths.tinymceJs,
         paths.app
     ])
         .pipe(concat(paths.jsDest + "/min/site.min.js"))
@@ -73,7 +72,6 @@ gulp.task("copy:js", function () {
         paths.tetherJs,
         paths.bootstrapJs,
         paths.bootboxJs,
-        //paths.tinymceJs,
         paths.app,
     ])
         .pipe(gulp.dest(paths.jsDest));
@@ -85,14 +83,24 @@ gulp.task("copy:js/custom", function () {
 });
 
 gulp.task("min:css", function () {
-    return gulp.src([paths.bootstrapCss, paths.bootstrapThemeCss, paths.tetherCss])
+    return gulp.src([
+        paths.bootstrapCss,
+        paths.bootstrapThemeCss,
+        paths.tetherCss,
+        paths.siteCss
+    ])
         .pipe(concat(paths.cssDest + "/min/site.min.css"))
         .pipe(cssmin())
         .pipe(gulp.dest("."));
 });
 
 gulp.task("copy:css", function () {
-    return gulp.src([paths.bootstrapCss, paths.bootstrapThemeCss, paths.tetherCss])
+    return gulp.src([
+        paths.bootstrapCss,
+        paths.bootstrapThemeCss,
+        paths.tetherCss,
+        paths.siteCss
+    ])
         .pipe(gulp.dest(paths.cssDest));
 });
 

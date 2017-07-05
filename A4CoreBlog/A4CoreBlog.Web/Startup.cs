@@ -57,6 +57,7 @@ namespace A4CoreBlog_Web
 
             // internal services
             services.AddScoped<IBlogService, BlogService>();
+            services.AddScoped<IPostService, PostService>();
 
             services.AddIdentity<User, IdentityRole>(config =>
             {

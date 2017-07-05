@@ -1,0 +1,15 @@
+﻿@model ICollection<PostBasicViewModel>
+
+<div class="jumbotron">
+    <h1>My posts...</h1>
+</div>
+
+<div class="container">
+    @foreach (var post in Model)
+    {
+        <div class="jumbotron">
+            <h1>@post.Title</h1>
+            <h3>@post.Summary</h3>
+        </div>
+    }
+</div>
