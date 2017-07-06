@@ -21,9 +21,9 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PostBasicViewModel> All(string authorId, int? blogId)
+        public IEnumerable<PostListBasicViewModel> All(string authorId, int? blogId)
         {
-            var model = _postService.GetAll<PostBasicViewModel>();
+            var model = _postService.GetAll<PostListBasicViewModel>();
             if (!string.IsNullOrEmpty(authorId))
             {
                 model = model.Where(p => p.AuthorId == authorId).ToList();
@@ -32,6 +32,13 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
             {
                 model = model.Where(p => p.BlogId == blogId).ToList();
             }
+            return model;
+        }
+        
+        [HttpGet]
+        public PostDetailsViewModel Get(int postId)
+        {
+            var model = _postService.Get<PostDetailsViewModel>(postId);
             return model;
         }
     }

@@ -13,7 +13,8 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
                 cfg.CreateMap<Blog, BasicBlogViewModel>().ReverseMap();
                 cfg.CreateMap<Blog, BlogEditViewModel>().ReverseMap();
                 
-                cfg.CreateMap<Post, PostBasicViewModel>().ReverseMap();
+                cfg.CreateMap<Post, PostListBasicViewModel>().ReverseMap();
+                cfg.CreateMap<Post, PostDetailsViewModel>().ReverseMap();
                 //// Custom field mapping tested and working !! :)
                 //    .ForMember(dest => dest.Description123, opt => opt.MapFrom(src => src.Description))
                 //    .ReverseMap();

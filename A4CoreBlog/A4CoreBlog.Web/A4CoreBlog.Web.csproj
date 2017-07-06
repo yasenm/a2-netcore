@@ -14,17 +14,22 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging.File" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <!-- Files not to show in IDE -->
     <None Remove="yarn.lock" />
     <Compile Remove="bower_components\**" />
+    <Compile Remove="Logs\**" />
     <Content Remove="bower_components\**" />
 
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
     <Content Remove="ClientApp\**" />
+    <Content Remove="Logs\**" />
     <EmbeddedResource Remove="bower_components\**" />
+    <EmbeddedResource Remove="Logs\**" />
     <None Remove="bower_components\**" />
+    <None Remove="Logs\**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\A4CoreBlog.Common\A4CoreBlog.Common.csproj" />

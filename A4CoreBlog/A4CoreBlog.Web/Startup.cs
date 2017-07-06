@@ -84,7 +84,9 @@ namespace A4CoreBlog_Web
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, BlogSystemSeedData seeder)
         {
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory
+                .AddFile("Logs/mylog-{Date}.txt")
+                .AddDebug();
 
             if (env.IsDevelopment())
             {

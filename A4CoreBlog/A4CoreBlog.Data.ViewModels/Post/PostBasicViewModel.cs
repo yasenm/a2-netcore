@@ -1,6 +1,6 @@
 ﻿namespace A4CoreBlog.Data.ViewModels
 {
-    public class PostBasicViewModel
+    public class PostListBasicViewModel
     {
         public int Id { get; set; }
         public string Summary { get; set; }

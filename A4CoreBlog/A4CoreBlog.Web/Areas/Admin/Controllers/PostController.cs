@@ -21,7 +21,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         [Authorize]
         public IActionResult MyPosts()
         {
-            var model = _postService.GetAll<PostBasicViewModel>()
+            var model = _postService.GetAll<PostListBasicViewModel>()
                 .Where(p => p.AuthorId == HttpContext.User.GetUserId())
                 .OrderBy(p => p.BlogId)
                 .ToList();
