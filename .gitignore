@@ -335,3 +335,5 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+/A4CoreBlog/A4CoreBlog.Web/Logs
+/A4CoreBlog/A4CoreBlog.Web/Logs

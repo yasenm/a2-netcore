@@ -6,5 +6,6 @@ namespace A4CoreBlog.Data.Services.Contracts
     {
         ICollection<T> GetAll<T>();
         T Get<T>(int id);
+        bool AddOrUpdate<T>(T model);
     }
 }

@@ -30,9 +30,50 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         }
 
         [Authorize]
-        public IActionResult AddOrUpdate(int? id)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            return View();
+            var model = _postService.Get<PostEditViewModel>(id);
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var model = new PostEditViewModel();
+            return View("Edit", model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(PostEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (_postService.AddOrUpdate(model))
+                {
+                    return RedirectToAction("MyPosts", new { @area = GlobalConstants.AdminArea });
+                }
+            }
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(PostEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.AuthorId = HttpContext.User.GetUserId();
+                if (_postService.AddOrUpdate(model))
+                {
+                    return RedirectToAction("MyPosts", new { @area = GlobalConstants.AdminArea });
+                }
+            }
+            return View("Edit", model);
         }
     }
 }

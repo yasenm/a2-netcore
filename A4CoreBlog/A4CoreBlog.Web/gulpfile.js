@@ -25,7 +25,7 @@ paths.bootboxJs = "./bower_components/bootbox.js/bootbox.js";
 paths.tetherJs = "./bower_components/tether/dist/js/tether.js";
 
 paths.app = "./areas/admin/js/app.js";
-paths.blog = "./areas/admin/js/blog/blog.js";
+paths.tmceJs = "./areas/admin/js/common/tmce.js";
 
 paths.jsDest = paths.webroot + "js";
 paths.cssDest = paths.webroot + "css";
@@ -46,7 +46,7 @@ gulp.task("min:js", function () {
 
 gulp.task("min:js/custom", function () {
     return gulp.src([
-        paths.blog
+        paths.tmceJs
     ])
         .pipe(concat(paths.jsDest + "/custom/min/site.min.js"))
         .pipe(uglify())
@@ -78,7 +78,7 @@ gulp.task("copy:js", function () {
 });
 
 gulp.task("copy:js/custom", function () {
-    return gulp.src([paths.blog])
+    return gulp.src([paths.tmceJs])
         .pipe(gulp.dest(paths.jsDest + '/custom'))
 });
 

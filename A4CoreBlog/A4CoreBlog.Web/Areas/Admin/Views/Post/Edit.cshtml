@@ -1,13 +1,15 @@
-﻿@model BlogEditViewModel
+﻿@model PostEditViewModel
 
 <div class="container">
-    <form asp-controller="Blog"
-          asp-action="Edit"
+    <form asp-controller="Post"
+          asp-action="@(Model.Id == 0 ? "Create" : "Edit")"
           asp-area="@GlobalConstants.AdminArea"
           method="post">
         @Html.AntiForgeryToken()
 
         <input asp-for="Id" type="hidden" value="@Model.Id" />
+        <input asp-for="BlogId" type="hidden" value="@Model.BlogId" />
+        <input asp-for="AuthorId" type="hidden" value="@Model.AuthorId" />
         <div class="form-group">
             <label asp-for="Title"></label>
             <input type="text" asp-for="Title" value="@Model.Title" class="form-control" />

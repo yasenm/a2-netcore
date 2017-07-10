@@ -2,6 +2,7 @@
 
 <div class="jumbotron">
     <h1>My posts...</h1>
+    <a asp-controller="Post" asp-action="Create" asp-area="@GlobalConstants.AdminArea" class="btn btn-danger">Create</a>
 </div>
 
 <div class="container">
@@ -10,6 +11,11 @@
         <div class="jumbotron">
             <h1>@post.Title</h1>
             <h3>@post.Summary</h3>
+            <a asp-controller="Post" 
+               asp-action="Edit" 
+               asp-area="@GlobalConstants.AdminArea" 
+               asp-route-id="@post.Id"
+               class="btn btn-success">Edit</a>
         </div>
     }
 </div>

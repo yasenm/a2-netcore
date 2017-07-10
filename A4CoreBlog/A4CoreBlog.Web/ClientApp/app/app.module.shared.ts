@@ -6,6 +6,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { PostsComponent } from './components/posts/posts.component';
+import { PostDetailsComponent } from "./components/posts/post-details.component";
 
 export const sharedConfig: NgModule = {
     bootstrap: [ AppComponent ],
@@ -13,6 +14,7 @@ export const sharedConfig: NgModule = {
         AppComponent,
         NavMenuComponent,
         PostsComponent,
+        PostDetailsComponent,
         FetchDataComponent,
         HomeComponent
     ],
@@ -21,6 +23,7 @@ export const sharedConfig: NgModule = {
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'posts', component: PostsComponent },
+            { path: 'posts/:id', component: PostDetailsComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }
         ])

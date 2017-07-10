@@ -1,0 +1,16 @@
+<p *ngIf="!post"><em>Loading...</em></p>
+
+<div *ngIf="post">
+    <h1>Post with id = {{ post.id }}</h1>
+
+    <p>This component demonstrates fetching Post details from the server.</p>
+
+
+    <div class='container'>
+        <div class="jumbotron">
+            <h1>{{ post.title }}</h1>
+            <h3>{{ post.summary }}</h3>
+            <p innerHtml="{{ post.description }}"></p>
+        </div>
+    </div>
+</div>

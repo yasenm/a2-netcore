@@ -12,24 +12,14 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
             {
                 cfg.CreateMap<Blog, BasicBlogViewModel>().ReverseMap();
                 cfg.CreateMap<Blog, BlogEditViewModel>().ReverseMap();
-                
+
                 cfg.CreateMap<Post, PostListBasicViewModel>().ReverseMap();
                 cfg.CreateMap<Post, PostDetailsViewModel>().ReverseMap();
-                //// Custom field mapping tested and working !! :)
-                //    .ForMember(dest => dest.Description123, opt => opt.MapFrom(src => src.Description))
-                //    .ReverseMap();
+                cfg.CreateMap<Post, PostEditViewModel>().ReverseMap();
 
                 //cfg.CreateMap<BlogPost, BlogPostDetailsViewModel>()
                 //    .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.UserName))
                 //    .ReverseMap();
-
-                //cfg.CreateMap<BlogPost, BlogSmallListViewModel>()
-                //    .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.UserName))
-                //    .ReverseMap();
-
-
-                //cfg.CreateMap<User, UserListViewModel>().ReverseMap();
-                //cfg.CreateMap<User, UserShortInfoViewModel>().ReverseMap();
             });
         }
     }

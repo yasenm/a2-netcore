@@ -39,6 +39,11 @@
     <ProjectReference Include="..\A4CoreBlog.Data.ViewModels\A4CoreBlog.Data.ViewModels.csproj" />
     <ProjectReference Include="..\A4CoreBlog.Data\A4CoreBlog.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="ClientApp\app\components\posts\post-details.component.ts">
+      <DependentUpon>post-details.component.html</DependentUpon>
+    </None>
+  </ItemGroup>
   <Target Name="RunWebpack" AfterTargets="ComputeFilesToPublish">
     <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
     <Exec Command="npm install" />

@@ -9,5 +9,8 @@
         <h1>{{ post.title }}</h1>
         <h3>{{ post.summary }}</h3>
         <span class="hidden">{{ post.id }}</span>
+        <div>
+            <a [routerLink]="post.id" class="btn btn-default">Details</a>
+        </div>
     </div>
 </div>

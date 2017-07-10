@@ -1,7 +1,6 @@
-﻿app["blog"] = {};
-app.blog = (function () {
-    init = function() {
-        //alert('asdasd');
+﻿app["tinymce"] = {};
+app.tinymce = (function () {
+    textareaInit = function() {
         tinymce.init({
             selector: 'textarea',
             height: 300,
@@ -16,6 +15,6 @@ app.blog = (function () {
     };
 
     return {
-        init: init
+        textareaInit: textareaInit
     }
 })();

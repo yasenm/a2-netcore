@@ -1,23 +1,19 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using A4CoreBlog.Data;
+using A4CoreBlog.Data.Infrastructure.Mapping;
+using A4CoreBlog.Data.Models;
+using A4CoreBlog.Data.Seed;
+using A4CoreBlog.Data.Services.Contracts;
+using A4CoreBlog.Data.Services.Implementations;
+using A4CoreBlog.Data.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using A4CoreBlog.Data;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using A4CoreBlog.Data.Models;
-using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Serialization;
-using A4CoreBlog.Data.Infrastructure.Mapping;
-using A4CoreBlog.Data.Seed;
-using A4CoreBlog.Data.UnitOfWork;
-using A4CoreBlog.Data.Services.Implementations;
-using A4CoreBlog.Data.Services.Contracts;
 
 namespace A4CoreBlog_Web
 {
