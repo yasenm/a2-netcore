@@ -105,4 +105,34 @@ gulp.task("copy:css", function () {
 });
 
 gulp.task("min", ["min:js", "min:js/custom", "min:js:validation", "min:css"]);
-gulp.task("copy", ["copy:js", "copy:js/custom", "copy:css"])
+gulp.task("copy", ["copy:js", "copy:js/custom", "copy:css"]);
+
+// vendor
+paths.vendorCssDest = paths.webroot + "dist";
+
+paths.vendorBootstrapCss = "./node_modules/bootstrap/dist/css/bootstrap.css";
+
+paths.vendorjQueryJs = "./node_modules/jquery/dist/js/jquery.js";
+paths.vendorTetherJs = "./node_modules/tether/dist/js/tether.js";
+paths.vendorBootstrapJs = "./node_modules/bootstrap/dist/js/bootstrap.js";
+
+gulp.task("vendor:min:css", function () {
+    return gulp.src([
+        paths.vendorBootstrapCss
+    ])
+        .pipe(concat(paths.vendorCssDest + "/vendor.css"))
+        .pipe(cssmin())
+        .pipe(gulp.dest("."));
+});
+
+//gulp.task("vendor:min:js", function () {
+//    return gulp.src([
+//        paths.vendorjQueryJs,
+//        paths.vendorTetherJs
+//    ])
+//        .pipe(concat(paths.vendorCssDest + "/vendor.custom.js"))
+//        .pipe(uglify())
+//        .pipe(gulp.dest("."));
+//});
+
+gulp.task("vendor:build", ["vendor:min:css"]);
