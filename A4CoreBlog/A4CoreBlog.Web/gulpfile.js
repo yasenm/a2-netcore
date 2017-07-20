@@ -110,7 +110,8 @@ gulp.task("copy", ["copy:js", "copy:js/custom", "copy:css"]);
 // vendor
 paths.vendorCssDest = paths.webroot + "dist";
 
-paths.vendorBootstrapCss = "./node_modules/bootstrap/dist/css/bootstrap.css";
+//paths.vendorBootstrapCss = "./node_modules/bootstrap/dist/css/bootstrap.css";
+paths.vendorBootstrapCss = "./Content/bootstrap-flaty.min.css";
 
 paths.vendorjQueryJs = "./node_modules/jquery/dist/js/jquery.js";
 paths.vendorTetherJs = "./node_modules/tether/dist/js/tether.js";

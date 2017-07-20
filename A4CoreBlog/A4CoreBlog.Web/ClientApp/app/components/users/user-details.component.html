@@ -1,0 +1,8 @@
+﻿<div *ngIf="!user">
+    Loading....
+</div>
+
+<div *ngIf="user">
+    <h1>User Name : {{user.username}}</h1>
+    <h1>User ID : {{user.id}}</h1>
+</div>

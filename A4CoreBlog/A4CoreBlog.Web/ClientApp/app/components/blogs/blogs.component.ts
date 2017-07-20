@@ -1,11 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { BlogInterface } from './blog';
+
 @Component({
-    selector: 'fetchdata',
-    templateUrl: './fetchdata.component.html'
+    selector: 'blogs',
+    templateUrl: './blogs.component.html'
 })
-export class FetchDataComponent {
+export class BlogsComponent {
     public blogs: BlogInterface[];
 
     constructor(http: Http, @Inject('ORIGIN_URL') originUrl: string) {
@@ -13,11 +15,4 @@ export class FetchDataComponent {
             this.blogs = result.json() as BlogInterface[];
         });
     }
-}
-
-interface BlogInterface {
-    description: string;
-    summary: string;
-    title: string;
-    id: number;
 }

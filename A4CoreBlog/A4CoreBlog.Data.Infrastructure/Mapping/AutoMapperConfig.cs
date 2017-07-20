@@ -17,6 +17,13 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
                 cfg.CreateMap<Post, PostDetailsViewModel>().ReverseMap();
                 cfg.CreateMap<Post, PostEditViewModel>().ReverseMap();
 
+                cfg.CreateMap<User, UserBaseViewModel>()
+                    .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.UserName))
+                    .ReverseMap();
+                cfg.CreateMap<User, UserDetailsViewModel>()
+                    .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.UserName))
+                    .ReverseMap();
+
                 //cfg.CreateMap<BlogPost, BlogPostDetailsViewModel>()
                 //    .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.UserName))
                 //    .ReverseMap();

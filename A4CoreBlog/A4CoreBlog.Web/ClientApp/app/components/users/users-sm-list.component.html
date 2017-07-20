@@ -1,0 +1,12 @@
+﻿<h1>{{title}}</h1>
+
+<p *ngIf="!users"><em>Loading...</em></p>
+
+<div class="list-group" *ngIf="users">
+    <a [routerLink]="['/users', user.username]" class="list-group-item list-group-item-action" [ngClass]="{'active': i % 2 == 0}" *ngFor="let user of users; let i = index">
+        <h4 class="list-group-item-heading">{{ user.username }}</h4>
+        <p class="list-group-item-text">
+            {{i}} Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+        </p>
+    </a>
+</div>
