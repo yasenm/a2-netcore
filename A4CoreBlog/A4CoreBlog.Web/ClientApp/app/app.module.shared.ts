@@ -5,6 +5,7 @@ import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
+import { BlogInfoComponent } from './components/blogs/blog-info.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailsComponent } from "./components/posts/post-details.component";
 import { UsersSmListComponent } from "./components/users/users-sm-list.component";
@@ -18,6 +19,7 @@ export const sharedConfig: NgModule = {
         PostsComponent,
         PostDetailsComponent,
         BlogsComponent,
+        BlogInfoComponent,
         UsersSmListComponent,
         UserDetailsComponent,
         HomeComponent

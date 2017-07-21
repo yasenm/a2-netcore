@@ -23,5 +23,12 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
             var result = _blogService.GetAll<BasicBlogViewModel>().ToList();
             return result;
         }
+
+        [HttpGet()]
+        public BasicBlogViewModel Details(string userId)
+        {
+            var result = _blogService.Get<BasicBlogViewModel>(userId);
+            return result;
+        }
     }
 }

@@ -8,7 +8,7 @@ import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'user-details',
-    templateUrl: 'user-details.component.html',
+    templateUrl: './user-details.component.html',
     providers: [UsersService]
 })
 export class UserDetailsComponent implements OnInit {

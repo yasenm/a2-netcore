@@ -46,6 +46,16 @@ namespace A4CoreBlog.Data.Services.Implementations
             return result;
         }
 
+        public T Get<T>(string userId)
+        {
+            var result = _data.Blogs.All()
+                 .Where(b => b.OwnerId == userId)
+                 .ProjectTo<T>()
+                 .FirstOrDefault();
+
+            return result;
+        }
+
         public IQueryable<T> GetAll<T>()
         {
             return _data.Blogs.All().ProjectTo<T>();
