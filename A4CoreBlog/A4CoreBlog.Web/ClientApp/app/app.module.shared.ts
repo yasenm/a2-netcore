@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
+import { FooterMenuComponent } from "./components/footer-menu/footer-menu.component";
 import { HomeComponent } from './components/home/home.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogInfoComponent } from './components/blogs/blog-info.component';
@@ -17,6 +18,7 @@ export const sharedConfig: NgModule = {
     declarations: [
         AppComponent,
         NavMenuComponent,
+        FooterMenuComponent,
         PostsComponent,
         PostDetailsComponent,
         PostSampleListComponent,
