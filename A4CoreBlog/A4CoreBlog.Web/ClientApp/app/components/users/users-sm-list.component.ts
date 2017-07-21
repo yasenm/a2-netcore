@@ -9,7 +9,6 @@ import { UserInterface } from './user-list';
     providers: [UsersService]
 })
 export class UsersSmListComponent implements OnInit {
-    public title: string;
     public users: UserInterface[];
     
     constructor(private _usersService: UsersService){}

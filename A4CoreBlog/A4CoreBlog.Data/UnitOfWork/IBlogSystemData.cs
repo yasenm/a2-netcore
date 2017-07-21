@@ -9,6 +9,7 @@ namespace A4CoreBlog.Data.UnitOfWork
         IRepository<User> Users { get; }
         IRepository<Blog> Blogs { get; }
         IRepository<Post> Posts { get; }
+        IRepository<SystemImage> Images { get; }
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }

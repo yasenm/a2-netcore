@@ -8,9 +8,10 @@ using A4CoreBlog.Data;
 namespace A4CoreBlog.Data.Migrations
 {
     [DbContext(typeof(BlogSystemContext))]
-    partial class BlogSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20170721155850_Users_Fields_Added_SystemImage_Entity_Added")]
+    partial class Users_Fields_Added_SystemImage_Entity_Added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

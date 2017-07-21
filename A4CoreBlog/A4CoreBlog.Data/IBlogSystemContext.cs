@@ -7,5 +7,6 @@ namespace A4CoreBlog.Data
     {
         DbSet<Blog> Blogs { get; set; }
         DbSet<Post> Posts { get; set; }
+        DbSet<SystemImage> Images { get; set; }
     }
 }

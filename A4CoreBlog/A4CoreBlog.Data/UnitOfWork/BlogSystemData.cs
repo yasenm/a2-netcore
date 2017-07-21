@@ -26,6 +26,8 @@ namespace A4CoreBlog.Data.UnitOfWork
 
         public IRepository<Post> Posts => GetDeletableEntityRepository<Post>();
 
+        public IRepository<SystemImage> Images => GetDeletableEntityRepository<SystemImage>();
+
         public int SaveChanges()
         {
             return Context.SaveChanges();

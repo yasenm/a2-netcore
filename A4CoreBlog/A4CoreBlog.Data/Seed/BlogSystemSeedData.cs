@@ -22,14 +22,14 @@ namespace A4CoreBlog.Data.Seed
 
         public async Task SeedData()
         {
-            //await _context.Database.EnsureDeletedAsync();
-            //if (await _context.Database.EnsureCreatedAsync())
-            //{
-            //    await SeedRoles();
-            //    await SeedUsers();
-            //    await SeedBlogs();
-            //    await SeedPosts();
-            //}
+            await _context.Database.EnsureDeletedAsync();
+            if (await _context.Database.EnsureCreatedAsync())
+            {
+                await SeedRoles();
+                await SeedUsers();
+                await SeedBlogs();
+                await SeedPosts();
+            }
         }
 
         private async Task SeedRoles()
@@ -72,13 +72,17 @@ namespace A4CoreBlog.Data.Seed
 
         private async Task SeedOtherUsers()
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 var userEmail = StringGenerator.RandomStringWithoutSpaces(7, 10) + "@core.com";
                 var user = new User
                 {
                     UserName = userEmail,
-                    Email = userEmail
+                    Email = userEmail,
+                    FirstName = StringGenerator.RandomStringWithoutSpaces(3, 10),
+                    LastName = StringGenerator.RandomStringWithoutSpaces(7, 20),
+                    Profession = StringGenerator.RandomStringWithoutSpaces(3, 20),
+                    AvatarLink = "https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png"
                 };
 
                 var result = await _userManager.CreateAsync(user, "P@ssw0rd");
