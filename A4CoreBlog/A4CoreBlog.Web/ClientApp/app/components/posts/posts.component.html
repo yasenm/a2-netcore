@@ -11,7 +11,7 @@
             <h3>{{ post.summary }}</h3>
             <span class="hidden">{{ post.id }}</span>
             <div>
-                <a [routerLink]="post.id" class="btn btn-primary">Details</a>
+                <a [routerLink]="['/post', post.id]" class="btn btn-primary">Details</a>
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@ import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogInfoComponent } from './components/blogs/blog-info.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailsComponent } from "./components/posts/post-details.component";
+import { PostSampleListComponent } from "./components/posts/post-sample-list.component";
 import { UsersSmListComponent } from "./components/users/users-sm-list.component";
 import { UserDetailsComponent } from "./components/users/user-details.component";
 
@@ -18,6 +19,7 @@ export const sharedConfig: NgModule = {
         NavMenuComponent,
         PostsComponent,
         PostDetailsComponent,
+        PostSampleListComponent,
         BlogsComponent,
         BlogInfoComponent,
         UsersSmListComponent,
@@ -29,7 +31,7 @@ export const sharedConfig: NgModule = {
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'posts', component: PostsComponent },
-            { path: 'posts/:id', component: PostDetailsComponent },
+            { path: 'post/:id', component: PostDetailsComponent },
             { path: 'blogs', component: BlogsComponent },
             { path: 'users/:username', component: UserDetailsComponent },
             { path: '**', redirectTo: 'home' }
