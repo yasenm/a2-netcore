@@ -24,9 +24,8 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
                     .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.UserName))
                     .ReverseMap();
 
-                //cfg.CreateMap<BlogPost, BlogPostDetailsViewModel>()
-                //    .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.UserName))
-                //    .ReverseMap();
+                cfg.CreateMap<SystemImage, SystemImageCreateOrEditViewModel>().ReverseMap();
+                cfg.CreateMap<SystemImage, SystemImageContentViewModel>().ReverseMap();
             });
         }
     }
