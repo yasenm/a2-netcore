@@ -3,10 +3,16 @@
 </div>
 
 <div class="row" *ngIf="user">
-    <div class="col-md-9">
-        <h1>User Name : {{user.username}}</h1>
+    <div class="col-md-12 row padding-10">
+        <div class="col-md-4">
+            <img src="{{user.avatarLink}}" alt="" class="img-responsive" />
+        </div>
+        <div class="col-md-8">
+            <h3>{{user.username}}</h3>
+            <h3>{{user.firstName}} {{user.lastName}}</h3>
+            <h3>Field: {{user.profession}}</h3>
+        </div>
     </div>
-    <div class="col-md-3">asdasd</div>
     <div class="col-md-12">
         <blog-info [userId]="user.id"></blog-info>
     </div>

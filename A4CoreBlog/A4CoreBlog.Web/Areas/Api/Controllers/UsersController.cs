@@ -23,9 +23,9 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         }
 
         [HttpGet]
-        public UserBaseViewModel Details(string username)
+        public UserProfileViewModel Details(string username)
         {
-            return _userService.Get<UserBaseViewModel>(username);
+            return _userService.Get<UserProfileViewModel>(username);
         }
     }
 }

@@ -1,11 +1,12 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
 import { UsersService } from '../../services/users.service';
-import { UserInterface } from './user-list';
+import { UserInterface } from './user';
 
 @Component({
     selector: 'users-sm-list',
     templateUrl: "./users-sm-list.component.html",
+    styleUrls: ['./users-sm-list.component.css'],
     providers: [UsersService]
 })
 export class UsersSmListComponent implements OnInit {

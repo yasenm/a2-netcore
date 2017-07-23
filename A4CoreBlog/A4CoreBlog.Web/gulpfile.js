@@ -112,6 +112,7 @@ paths.vendorCssDest = paths.webroot + "dist";
 
 //paths.vendorBootstrapCss = "./node_modules/bootstrap/dist/css/bootstrap.css";
 paths.vendorBootstrapCss = "./Content/bootstrap-flaty.min.css";
+paths.vendorSiteCss = "./Content/site.css";
 
 paths.vendorjQueryJs = "./node_modules/jquery/dist/js/jquery.js";
 paths.vendorTetherJs = "./node_modules/tether/dist/js/tether.js";
@@ -119,7 +120,8 @@ paths.vendorBootstrapJs = "./node_modules/bootstrap/dist/js/bootstrap.js";
 
 gulp.task("vendor:min:css", function () {
     return gulp.src([
-        paths.vendorBootstrapCss
+        paths.vendorBootstrapCss,
+        paths.vendorSiteCss
     ])
         .pipe(concat(paths.vendorCssDest + "/vendor.css"))
         .pipe(cssmin())

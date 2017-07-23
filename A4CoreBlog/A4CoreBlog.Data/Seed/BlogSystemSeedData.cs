@@ -58,7 +58,11 @@ namespace A4CoreBlog.Data.Seed
             var adminUser = new User
             {
                 UserName = userEmail,
-                Email = userEmail
+                Email = userEmail,
+                FirstName = StringGenerator.RandomStringWithoutSpaces(3, 10),
+                LastName = StringGenerator.RandomStringWithoutSpaces(7, 20),
+                Profession = StringGenerator.RandomStringWithoutSpaces(3, 20),
+                AvatarLink = "https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png"
             };
 
             var roles = _context.Roles.ToList();

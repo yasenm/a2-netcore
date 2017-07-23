@@ -4,12 +4,19 @@
 
 <div class="list-group" *ngIf="users">
     <a *ngFor="let user of users; let i = index"
-       [routerLink]="['/users', user.username]" 
-       class="list-group-item list-group-item-action" 
-       [ngClass]="{'active': i % 2 == 0}" >
-        <h4 class="list-group-item-heading">{{ user.username }}</h4>
-        <p class="list-group-item-text">
-            {{i}} Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
-        </p>
+       [routerLink]="['/users', user.username]"
+       class="list-group-item list-group-item-action row"
+       [ngClass]="{'active': i % 2 == 0}">
+        <div class="col-4 no-padding">
+            <img src="{{user.avatarLink}}" alt="" class="img-responsive" />
+        </div>
+        <div class="col-8" style="word-break: break-all; word-wrap: break-word;">
+            <h4 class="list-group-item-heading">{{ user.username }}</h4>
+        </div>
+        <div class="col-12">
+            <p class="list-group-item-text">
+                {{i}} Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.
+            </p>
+        </div>
     </a>
 </div>

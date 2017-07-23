@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 
-import { UserInterface } from './user-list';
+import { UserInterface } from './user';
 import { UsersService } from '../../services/users.service';
 
 import 'rxjs/add/operator/switchMap';
@@ -9,6 +9,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
     selector: 'user-details',
     templateUrl: './user-details.component.html',
+    styleUrls: ['./user-details.component.css'],
     providers: [UsersService]
 })
 export class UserDetailsComponent implements OnInit {
