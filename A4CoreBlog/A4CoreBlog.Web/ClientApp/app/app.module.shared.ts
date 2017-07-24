@@ -6,6 +6,7 @@ import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { FooterMenuComponent } from "./components/footer-menu/footer-menu.component";
 import { HomeComponent } from './components/home/home.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
+import { BlogSampleListComponent } from "./components/blogs/blog-sample-list.component";
 import { BlogInfoComponent } from './components/blogs/blog-info.component';
 import { PostsComponent } from './components/posts/posts.component';
 import { PostDetailsComponent } from "./components/posts/post-details.component";
@@ -23,6 +24,7 @@ export const sharedConfig: NgModule = {
         PostDetailsComponent,
         PostSampleListComponent,
         BlogsComponent,
+        BlogSampleListComponent,
         BlogInfoComponent,
         UsersSmListComponent,
         UserDetailsComponent,

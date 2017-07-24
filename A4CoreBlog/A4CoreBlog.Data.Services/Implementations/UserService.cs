@@ -27,5 +27,10 @@ namespace A4CoreBlog.Data.Services.Implementations
         {
             return _data.Users.All().ProjectTo<T>().ToList();
         }
+
+        public T Update<T>(T model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

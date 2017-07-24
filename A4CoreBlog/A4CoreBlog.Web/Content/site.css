@@ -1,4 +1,9 @@
-﻿.content-container {
+﻿body {
+    word-break: keep-all;
+    word-wrap: break-word;
+}
+
+.content-container {
     padding: 20px 0;
 }
 
@@ -24,4 +29,8 @@
 
 .margin-10 {
     margin: 10px;
+}
+
+.full-width {
+    width: 100%;
 }

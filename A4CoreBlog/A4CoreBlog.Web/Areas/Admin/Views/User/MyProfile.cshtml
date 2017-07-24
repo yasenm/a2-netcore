@@ -1,0 +1,14 @@
+﻿@model UserProfileViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="@Model.AvatarLink" alt="Alternate Text" />
+        </div>
+        <div class="col-md-9">
+            <h3>User: @Model.Username</h3>
+            <h3>Name: @Model.FirstName @Model.LastName</h3>
+            <h3>Profession: @Model.Profession</h3>
+        </div>
+    </div>
+</div>

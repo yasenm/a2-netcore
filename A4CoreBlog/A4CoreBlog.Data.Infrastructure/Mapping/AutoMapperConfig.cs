@@ -10,10 +10,16 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<Blog, BasicBlogViewModel>().ReverseMap();
+                cfg.CreateMap<Blog, BasicBlogViewModel>()
+                    .ForMember(dest => dest.OwnerName, opt => opt.MapFrom(src => src.Owner.UserName))
+                    .ForMember(dest => dest.From, opt => opt.MapFrom(src => src.CreatedOn))
+                    .ReverseMap();
                 cfg.CreateMap<Blog, BlogEditViewModel>().ReverseMap();
 
-                cfg.CreateMap<Post, PostListBasicViewModel>().ReverseMap();
+                cfg.CreateMap<Post, PostListBasicViewModel>()
+                    .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Author.UserName))
+                    .ForMember(dest => dest.From, opt => opt.MapFrom(src => src.CreatedOn))
+                    .ReverseMap();
                 cfg.CreateMap<Post, PostDetailsViewModel>().ReverseMap();
                 cfg.CreateMap<Post, PostEditViewModel>().ReverseMap();
 

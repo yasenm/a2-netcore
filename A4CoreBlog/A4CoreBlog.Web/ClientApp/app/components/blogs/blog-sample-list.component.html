@@ -1,0 +1,18 @@
+﻿<h4>Our blogs: </h4>
+
+<p *ngIf="!blogs"><em>Loading...</em></p>
+
+<div class="list-group" *ngIf="blogs">
+    <a *ngFor="let blog of blogs; let i = index"
+       [routerLink]="['/blogs', blog.id]"
+       class="list-group-item list-group-item-action row"
+       [ngClass]="{'active': i % 2 == 0}">
+
+        <div class="col-12">
+            <h4 class="list-group-item-heading">{{ blog.title }}</h4>
+        </div>
+        <div class="col-12">
+            <p class="list-group-item-text">{{ blog.summary }}</p>
+        </div>
+    </a>
+</div>

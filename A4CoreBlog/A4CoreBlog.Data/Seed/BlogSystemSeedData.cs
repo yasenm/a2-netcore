@@ -3,6 +3,7 @@ using A4CoreBlog.Common.RandomGenerators;
 using A4CoreBlog.Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -25,11 +26,11 @@ namespace A4CoreBlog.Data.Seed
             //await _context.Database.EnsureDeletedAsync();
             //if (await _context.Database.EnsureCreatedAsync())
             //{
+                await SeedRoles();
+                await SeedUsers();
+                await SeedBlogs();
+                await SeedPosts();
             //}
-            await SeedRoles();
-            await SeedUsers();
-            await SeedBlogs();
-            await SeedPosts();
         }
 
         private async Task SeedRoles()
@@ -103,14 +104,15 @@ namespace A4CoreBlog.Data.Seed
             if (!_context.Blogs.Any())
             {
                 var users = _context.Users.ToList();
-                for (int i = 0; i < users.Count - 1; i++)
+                for (int i = 0; i < users.Count; i++)
                 {
                     Blog newBlog = new Blog()
                     {
                         Description = StringGenerator.RandomStringWithSpaces(200, 400),
                         Title = StringGenerator.RandomStringWithSpaces(6, 50),
                         Summary = StringGenerator.RandomStringWithSpaces(80, 100),
-                        OwnerId = users[i].Id
+                        OwnerId = users[i].Id,
+                        CreatedOn = DateTime.Now
                     };
 
                     await _context.Blogs.AddAsync(newBlog);
@@ -133,7 +135,8 @@ namespace A4CoreBlog.Data.Seed
                         Title = StringGenerator.RandomStringWithSpaces(6, 50),
                         Summary = StringGenerator.RandomStringWithSpaces(80, 100),
                         AuthorId = users[NumberGenerator.RandomNumber(0, users.Count - 1)].Id,
-                        BlogId = blogs[NumberGenerator.RandomNumber(0, blogs.Count - 1)].Id
+                        BlogId = blogs[NumberGenerator.RandomNumber(0, blogs.Count - 1)].Id,
+                        CreatedOn = DateTime.Now
                     };
 
                     await _context.Posts.AddAsync(newPost);
