@@ -27,6 +27,10 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
                     .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.UserName))
                     .ReverseMap();
                 cfg.CreateMap<User, UserProfileViewModel>().ReverseMap();
+                cfg.CreateMap<RegistrationViewModel, User>()
+                    .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Username))
+                    .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Username))
+                    .ReverseMap();
 
                 cfg.CreateMap<SystemImage, SystemImageCreateOrEditViewModel>().ReverseMap();
                 cfg.CreateMap<SystemImage, SystemImageContentViewModel>().ReverseMap();

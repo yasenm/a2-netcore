@@ -56,6 +56,7 @@ namespace A4CoreBlog_Web
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISystemImageService, SystemImageService>();
+            services.AddScoped<IAuthService, AuthService>(); 
 
             services.AddIdentity<User, IdentityRole>(config =>
             {

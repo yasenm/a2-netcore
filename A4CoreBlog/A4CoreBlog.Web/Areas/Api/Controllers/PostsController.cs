@@ -1,6 +1,7 @@
 ﻿using A4CoreBlog.Common;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,21 +20,37 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PostListBasicViewModel> All(string authorId, int? blogId)
+        public IQueryable<PostListBasicViewModel> All(string authorId, int? blogId)
         {
-            var model = _postService.GetAll<PostListBasicViewModel>();
+            var model = _postService.GetAll<PostListBasicViewModel>(); //.Skip(page * size).Take(size);
             if (!string.IsNullOrEmpty(authorId))
             {
-                model = model.Where(p => p.AuthorId == authorId).ToList();
+                model = model.Where(p => p.AuthorId == authorId);
             }
             if (blogId != null)
             {
-                model = model.Where(p => p.BlogId == blogId).ToList();
+                model = model.Where(p => p.BlogId == blogId);
             }
             Thread.Sleep(2000);
             return model;
         }
-        
+
+        [HttpGet]
+        public int Count(string authorId, int? blogId)
+        {
+            var model = _postService.GetAll<PostListBasicViewModel>();
+            if (!string.IsNullOrEmpty(authorId))
+            {
+                model = model.Where(p => p.AuthorId == authorId);
+            }
+            if (blogId != null)
+            {
+                model = model.Where(p => p.BlogId == blogId);
+            }
+            var result = model.Count();
+            return result;
+        }
+
         [HttpGet]
         public PostDetailsViewModel Get(int postId)
         {

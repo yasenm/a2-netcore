@@ -4,7 +4,7 @@
 
 <div class='container row' *ngIf="posts">
     <div class="col-md-12">
-        <div class="padding-5" *ngFor="let post of posts | paginate: { itemsPerPage: 2, currentPage: p }">
+        <div class="padding-5" *ngFor="let post of posts | paginate: {itemsPerPage: size, currentPage: p}">
             <div class="post-item padding-5 row">
                 <div class="col-12">
                     <a [routerLink]="['/post', post.id]">

@@ -52,9 +52,9 @@ namespace A4CoreBlog.Data.Services.Implementations
             return model;
         }
 
-        public ICollection<T> GetAll<T>()
+        public IQueryable<T> GetAll<T>()
         {
-            return _data.Posts.All().ProjectTo<T>().ToList();
+            return _data.Posts.All().ProjectTo<T>();
         }
     }
 }
