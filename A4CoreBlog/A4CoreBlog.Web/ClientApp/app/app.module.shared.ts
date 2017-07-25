@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { FooterMenuComponent } from "./components/footer-menu/footer-menu.component";
+import { SimpleLoaderComponent } from "./shared/loaders/simple-loader.component";
+//import { PaginationComponent } from "./components/shared/pagination/pagination.component";
 import { HomeComponent } from './components/home/home.component';
 import { BlogsComponent } from './components/blogs/blogs.component';
 import { BlogSampleListComponent } from "./components/blogs/blog-sample-list.component";
@@ -20,6 +23,8 @@ export const sharedConfig: NgModule = {
         AppComponent,
         NavMenuComponent,
         FooterMenuComponent,
+        SimpleLoaderComponent,
+        //PaginationComponent,
         PostsComponent,
         PostDetailsComponent,
         PostSampleListComponent,
@@ -39,6 +44,7 @@ export const sharedConfig: NgModule = {
             { path: 'blogs', component: BlogsComponent },
             { path: 'users/:username', component: UserDetailsComponent },
             { path: '**', redirectTo: 'home' }
-        ])
+        ]),
+        NgxPaginationModule
     ]
 };

@@ -4,6 +4,7 @@ using A4CoreBlog.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace A4CoreBlog.Web.Areas.Api.Controllers
 {
@@ -21,6 +22,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         public IEnumerable<BasicBlogViewModel> All()
         {
             var result = _blogService.GetAll<BasicBlogViewModel>().ToList();
+            Thread.Sleep(2000);
             return result;
         }
 
@@ -28,6 +30,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         public BasicBlogViewModel Details(string userId)
         {
             var result = _blogService.Get<BasicBlogViewModel>(userId);
+            Thread.Sleep(2000);
             return result;
         }
     }

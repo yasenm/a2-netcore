@@ -1,4 +1,4 @@
-﻿<div *ngIf="!posts">Posts list loading...</div>
+﻿<simple-loader *ngIf="!posts"></simple-loader>
 
 <div class="list-group" *ngIf="posts">
     <a *ngFor="let post of posts; let i = index"

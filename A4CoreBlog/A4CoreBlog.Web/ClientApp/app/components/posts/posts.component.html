@@ -1,16 +1,16 @@
 <h2>Posts</h2>
 
-<p *ngIf="!posts"><em>Loading...</em></p>
+<simple-loader *ngIf="!posts"></simple-loader>
 
 <div class='container row' *ngIf="posts">
     <div class="col-md-12">
-        <div class="padding-5" *ngFor="let post of posts">
+        <div class="padding-5" *ngFor="let post of posts | paginate: { itemsPerPage: 2, currentPage: p }">
             <div class="post-item padding-5 row">
                 <div class="col-12">
                     <a [routerLink]="['/post', post.id]">
-                        <h1>{{ post.title }}</h1>
+                        <h3>{{ post.title }}</h3>
                     </a>
-                    <h3>{{ post.summary }}</h3>
+                    <p>{{ post.summary }}</p>
                 </div>
                 <div class="col-6">
                     Dated : {{ post.from | date:'MM/dd/yyyy HH:mm' }}
@@ -23,5 +23,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-12">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
 </div>

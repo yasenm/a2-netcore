@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Http } from "@angular/http";
 import { Router, ActivatedRoute } from "@angular/router";
+
 import 'rxjs/add/operator/switchMap';
 
 @Component({

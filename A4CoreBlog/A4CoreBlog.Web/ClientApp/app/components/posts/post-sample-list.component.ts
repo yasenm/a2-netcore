@@ -1,7 +1,7 @@
 ﻿import { Component, Input, OnInit, OnChanges, SimpleChanges } from "@angular/core";
 
 import { PostInterface } from "./post";
-import { PostsService } from "../../services/posts.service";
+import { PostsService } from "../../shared/services/posts.service";
 
 import 'rxjs/add/operator/switchMap';
 

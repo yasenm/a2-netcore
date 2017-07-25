@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit } from "@angular/core";
 
-import { BlogsService } from "../../services/blogs.service";
+import { BlogsService } from "../../shared/services/blogs.service";
 import { BlogInterface } from "./blog";
 
 @Component({

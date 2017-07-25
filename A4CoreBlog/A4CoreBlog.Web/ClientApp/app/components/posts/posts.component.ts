@@ -1,21 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { Http } from "@angular/http";
+import { Component, OnInit } from '@angular/core';
 
 import { PostInterface } from './post';
+import { PostsService } from "../../shared/services/posts.service";
 
 @Component({
     selector: 'posts',
     templateUrl: './posts.component.html',
-    styleUrls: ['./posts.component.css']
+    styleUrls: ['./posts.component.css'],
+    providers: [PostsService]
 })
 export class PostsComponent implements OnInit {
+    public p: number = 1;
     public posts: PostInterface[];
-    
-    constructor(private _http: Http, @Inject('ORIGIN_URL') private originUrl: string) {}
+
+    constructor(private _postsService: PostsService) { }
 
     ngOnInit(): void {
-        this._http.get(this.originUrl + '/api/posts/all').subscribe(result => {
-            this.posts = result.json() as PostInterface[];
-        });
+        this._postsService.getPosts('')
+            .subscribe((data) => this.posts = data.json() as PostInterface[]);
     }
 }

@@ -1,4 +1,4 @@
-﻿<div *ngIf="!blog">Blog is loading...</div>
+﻿<simple-loader *ngIf="!blog"></simple-loader>
 
 <div class="jumbotron padding-5" *ngIf="blog">
     <h1>{{blog.title}}</h1>

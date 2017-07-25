@@ -4,6 +4,7 @@ using A4CoreBlog.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace A4CoreBlog.Web.Areas.Api.Controllers
 {
@@ -29,6 +30,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
             {
                 model = model.Where(p => p.BlogId == blogId).ToList();
             }
+            Thread.Sleep(2000);
             return model;
         }
         
@@ -36,6 +38,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         public PostDetailsViewModel Get(int postId)
         {
             var model = _postService.Get<PostDetailsViewModel>(postId);
+            Thread.Sleep(2000);
             return model;
         }
     }

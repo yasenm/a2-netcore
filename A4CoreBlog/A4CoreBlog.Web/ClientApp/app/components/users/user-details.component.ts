@@ -2,9 +2,9 @@
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { UserInterface } from './user';
-import { UsersService } from '../../services/users.service';
 
 import 'rxjs/add/operator/switchMap';
+import { UsersService } from "../../shared/services/users.service";
 
 @Component({
     selector: 'user-details',

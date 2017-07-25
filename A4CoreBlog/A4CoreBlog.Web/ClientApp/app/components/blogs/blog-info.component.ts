@@ -1,7 +1,7 @@
 ﻿import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { BlogInterface } from './blog';
-import { BlogsService } from '../../services/blogs.service';
+import { BlogsService } from '../../shared/services/blogs.service';
 
 import 'rxjs/add/operator/switchMap';
 
