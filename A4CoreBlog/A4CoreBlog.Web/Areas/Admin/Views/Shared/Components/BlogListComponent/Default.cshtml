@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<BasicBlogViewModel>
 
-@foreach (var blogItem in Model.Where(b => b.OwnerUsername == User.Identity.Name))
+@foreach (var blogItem in Model.Where(b => b.OwnerName == User.Identity.Name))
 {
     <div class="jumbotron">
         <div class="col-md-10">
             <h1>@blogItem.Title</h1>
             <h3>@blogItem.Summary</h3>
         </div>
-        @if (User.Identity.Name == blogItem.OwnerUsername)
+        @if (User.Identity.Name == blogItem.OwnerName)
         {
             <div class="col-md-2">
                 <a class="btn btn-success"
@@ -20,7 +20,7 @@
     </div>
 }
 
-@foreach (var blogItem in Model.Where(b => b.OwnerUsername != User.Identity.Name))
+@foreach (var blogItem in Model.Where(b => b.OwnerName != User.Identity.Name))
 {
     <div class="jumbotron">
         <div class="col-md-12">
