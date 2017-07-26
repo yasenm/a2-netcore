@@ -40,7 +40,7 @@
     <ProjectReference Include="..\A4CoreBlog.Data\A4CoreBlog.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="ClientApp\app\components\posts\post-details.component.ts">
+    <None Update="ClientApp\app\posts\post-details.component.ts">
       <DependentUpon>post-details.component.html</DependentUpon>
     </None>
   </ItemGroup>

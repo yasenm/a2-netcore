@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from "@angular/core";
 
-import { BlogsService } from "../../shared/services/blogs.service";
 import { BlogInterface } from "./blog";
+import { BlogsService } from "../shared/services/blogs.service";
 
 @Component({
     selector: 'blog-sample-list',

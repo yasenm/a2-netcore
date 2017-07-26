@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { PostsComponent } from "../posts/posts.component";
-import { BlogsComponent } from "../blogs/blogs.component";
+import { PostsComponent } from "../../posts/posts.component";
+import { BlogsComponent } from "../../blogs/blogs.component";
 
 @Component({
     selector: 'home',

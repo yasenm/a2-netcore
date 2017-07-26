@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { PostInterface } from './post';
-import { PostsService } from "../../shared/services/posts.service";
+import { PostsService } from "../shared/services/posts.service";
 
 @Component({
     selector: 'posts',
@@ -17,26 +17,16 @@ export class PostsComponent implements OnInit, OnChanges {
 
     constructor(private _postsService: PostsService) { }
 
-    getTotalPostsCount(): void {
-        this._postsService.getPostsCount('')
-            .subscribe((data) => {
-                this.total = data as number;
-                this.getPosts();
-            });
-    }
-
     getPosts() {
         this._postsService.getPosts('')
             .subscribe((data) => this.posts = data.json() as PostInterface[]);
     }
 
     ngOnInit(): void {
-        this.getTotalPostsCount();
-        //this.getPosts();
+        this.getPosts();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.getTotalPostsCount();
-        //this.getPosts();
+        this.getPosts();
     }
 }

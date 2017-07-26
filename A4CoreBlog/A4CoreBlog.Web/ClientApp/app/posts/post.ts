@@ -6,4 +6,5 @@
     authorName: string;
     blogId: number;
     from: Date;
+    description: string;
 }

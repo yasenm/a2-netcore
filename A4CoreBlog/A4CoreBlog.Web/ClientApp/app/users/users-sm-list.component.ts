@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { UsersService } from "../../shared/services/users.service";
-import { UserInterface } from './user';
+import { UserInterface } from "./user";
+import { UsersService } from "../shared/services/users.service";
 
 @Component({
     selector: 'users-sm-list',
