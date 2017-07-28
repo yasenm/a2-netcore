@@ -14,7 +14,9 @@ import { sharedConfig } from './app.module.shared';
         ...sharedConfig.imports
     ],
     providers: [
-        { provide: 'ORIGIN_URL', useValue: location.origin }
+        { provide: 'ORIGIN_URL', useValue: location.origin },
+        { provide: 'LOGIN_URL', useValue: location.origin + '/auth/login?returnurl=' },
+        { provide: 'LOGIN_TOKEN_URL', useValue: location.origin + '/api/clientauth/token' }
     ]
 })
 export class AppModule {

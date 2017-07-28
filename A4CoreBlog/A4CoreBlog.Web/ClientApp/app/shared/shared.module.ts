@@ -1,6 +1,7 @@
 ﻿import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from "@angular/platform-browser";
 
 import { SimpleLoaderComponent } from "./loaders/simple-loader.component";
 import { NavMenuComponent } from './navmenu/navmenu.component';
@@ -11,12 +12,15 @@ import { RouterModule } from "@angular/router";
 @NgModule({
     imports: [
         CommonModule,
+        FormsModule,
+        BrowserModule,
         NgxPaginationModule,
         RouterModule
     ],
     exports: [
         CommonModule,
         FormsModule,
+        BrowserModule,
         NgxPaginationModule,
         SimpleLoaderComponent,
         NavMenuComponent,

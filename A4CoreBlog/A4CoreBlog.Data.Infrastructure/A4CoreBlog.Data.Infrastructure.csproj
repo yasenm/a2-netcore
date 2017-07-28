@@ -13,4 +13,8 @@
     <ProjectReference Include="..\A4CoreBlog.Data.ViewModels\A4CoreBlog.Data.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authorization\" />
+  </ItemGroup>
+
 </Project>

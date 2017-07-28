@@ -37,7 +37,7 @@ namespace A4CoreBlog.Data.Services.Implementations
                 return true;
             }
             catch (Exception ex)
-            {
+            { 
                 return false;
             }
         }

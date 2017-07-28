@@ -8,6 +8,8 @@ import { SharedModule } from "../shared/shared.module";
 import { UsersService } from "../shared/services/users.service";
 import { PostsModule } from "../posts/posts.module";
 import { BlogsModule } from "../blogs/blogs.module";
+import { AuthGuard } from "../shared/guards/auth.guard";
+import { AuthService } from "../shared/services/auth.service";
 
 @NgModule({
     imports: [
@@ -15,7 +17,7 @@ import { BlogsModule } from "../blogs/blogs.module";
         PostsModule,
         BlogsModule,
         RouterModule.forChild([
-            { path: 'users/:username', component: UserDetailsComponent }
+            { path: 'users/:username', component: UserDetailsComponent, canActivate: [AuthGuard] }
         ])
     ],
     declarations: [
@@ -26,7 +28,9 @@ import { BlogsModule } from "../blogs/blogs.module";
         UsersSmListComponent
     ],
     providers: [
-        UsersService
+        UsersService,
+        AuthGuard,
+        AuthService
     ]
 })
 export class UsersModule {

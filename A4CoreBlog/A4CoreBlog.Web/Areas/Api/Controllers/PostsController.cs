@@ -1,9 +1,7 @@
 ﻿using A4CoreBlog.Common;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 

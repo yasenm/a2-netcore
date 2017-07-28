@@ -1,10 +1,12 @@
 using A4CoreBlog.Data;
+using A4CoreBlog.Data.Infrastructure;
 using A4CoreBlog.Data.Infrastructure.Mapping;
 using A4CoreBlog.Data.Models;
 using A4CoreBlog.Data.Seed;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.Services.Implementations;
 using A4CoreBlog.Data.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,7 +15,10 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace A4CoreBlog_Web
 {
@@ -41,7 +46,13 @@ namespace A4CoreBlog_Web
         {
             //Automapper configuration initialization
             AutoMapperConfig.Init();
-            
+
+            // Adds services required for using options.
+            services.AddOptions();
+
+            // Register the IConfiguration instance which MyOptions binds against.
+            services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
+
             services.AddTransient<BlogSystemSeedData>();
 
             // Add framework services.
@@ -56,14 +67,9 @@ namespace A4CoreBlog_Web
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISystemImageService, SystemImageService>();
-            services.AddScoped<IAuthService, AuthService>(); 
+            services.AddScoped<IAuthService, AuthService>();
 
-            services.AddIdentity<User, IdentityRole>(config =>
-            {
-                config.User.RequireUniqueEmail = true;
-                config.Cookies.ApplicationCookie.LoginPath = "/auth/login";
-            })
-            .AddEntityFrameworkStores<BlogSystemContext>();
+            ConfigureServicesIdentity(services);
 
             // Add framework services.
             services.AddMvc(config =>
@@ -100,9 +106,9 @@ namespace A4CoreBlog_Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseIdentity();
-
             app.UseStaticFiles();
+
+            ConfigureSecurity(app);
 
             app.UseMvc(routes =>
             {
@@ -120,6 +126,68 @@ namespace A4CoreBlog_Web
             });
 
             seeder.SeedData().Wait();
+        }
+
+        private static void ConfigureServicesIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole>(config =>
+                {
+                    config.User.RequireUniqueEmail = true;
+                    config.Cookies.ApplicationCookie.LoginPath = "/auth/login";
+                })
+            .AddEntityFrameworkStores<BlogSystemContext>()
+            .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(config =>
+            {
+                config.Cookies.ApplicationCookie.Events =
+                    new CookieAuthenticationEvents
+                    {
+                        OnRedirectToLogin = ctx =>
+                        {
+                            // If we were redirect to login from api..
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 401;
+                                return Task.FromResult<object>(null);
+                            }
+
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                            return Task.FromResult<object>(null);
+                        },
+                        OnRedirectToAccessDenied = ctx =>
+                        {
+                            // If access is denied from api...
+                            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+                            {
+                                ctx.Response.StatusCode = 403;
+                                return Task.FromResult<object>(null);
+                            }
+
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                            return Task.FromResult<object>(null);
+                        }
+                    };
+            });
+        }
+
+        private void ConfigureSecurity(IApplicationBuilder app)
+        {
+            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            {
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true,
+                TokenValidationParameters = new TokenValidationParameters
+                {
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("AppConfiguration:Key").Value)),
+                    ValidAudience = Configuration.GetSection("AppConfiguration:SiteUrl").Value,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = Configuration.GetSection("AppConfiguration:SiteUrl").Value
+                }
+            });
+
+            app.UseIdentity();
         }
     }
 }
