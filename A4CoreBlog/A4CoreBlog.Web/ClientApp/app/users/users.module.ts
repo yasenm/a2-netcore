@@ -10,6 +10,7 @@ import { PostsModule } from "../posts/posts.module";
 import { BlogsModule } from "../blogs/blogs.module";
 import { AuthGuard } from "../shared/guards/auth.guard";
 import { AuthService } from "../shared/services/auth.service";
+import { CookieService } from "../shared/services/cookie.service";
 
 @NgModule({
     imports: [
@@ -30,7 +31,8 @@ import { AuthService } from "../shared/services/auth.service";
     providers: [
         UsersService,
         AuthGuard,
-        AuthService
+        AuthService,
+        CookieService
     ]
 })
 export class UsersModule {

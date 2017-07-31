@@ -2,27 +2,28 @@
 import { Http, Headers, RequestOptions } from "@angular/http";
 
 import { LoginForm } from "../../auth/login";
+import { CookieService } from "./cookie.service";
 
 import "rxjs/add/operator/map";
+import { AuthResponse } from "../../auth/auth-response";
 
 @Injectable()
 export class AuthService {
-    private loggedIn: boolean = false;
+    private userCookieName: string = 'currentUser';
     public token: string;
 
     constructor(
         private _http: Http,
-        @Inject('LOGIN_TOKEN_URL') private _loginTokenUrl: string) {
-        //console.log(!!this.getCookie('.AspNetCore.Identity.Application'));
-        // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.token = currentUser && currentUser.token;
-        this.loggedIn = !!localStorage.getItem('currentUser');
-        //this.loggedIn = !!this.getCookie('.AspNetCore.Identity.Application');
-    }
+        private _cookieService: CookieService,
+        @Inject('LOGIN_TOKEN_URL') private _loginTokenUrl: string)
+    { }
 
     public isLoggedIn(): boolean {
-        return this.loggedIn;
+        this.token = this._cookieService.getCookie(this.userCookieName);
+        if (this.token) {
+            return true;
+        }
+        return false;
     }
 
     public login(loginForm: LoginForm): any {
@@ -32,14 +33,17 @@ export class AuthService {
         console.log(loginString);
         return this._http.post(this._loginTokenUrl, loginForm, options)
             .map(res => {
+                let authResponse = res.json() as AuthResponse;
                 let token = res.json() && res.json().token;
-                if (token) {
+                if (authResponse && authResponse.token) {
                     // set token property
-                    this.token = token;
+                    this.token = authResponse.token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: loginForm.username, token: token }));
-                    this.loggedIn = true;
+                    this._cookieService.setCookie(this.userCookieName,
+                        authResponse.token,
+                        new Date(authResponse.expiration).toUTCString());
+                    
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -52,6 +56,7 @@ export class AuthService {
     public logout(): void {
         // clear token remove user from local storage to log user out
         this.token = null;
-        localStorage.removeItem('currentUser');
+        this._cookieService.deleteCookie(this.userCookieName);
+        //localStorage.removeItem('currentUser');
     }
 }
