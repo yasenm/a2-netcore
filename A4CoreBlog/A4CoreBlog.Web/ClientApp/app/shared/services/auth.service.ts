@@ -1,7 +1,7 @@
 ﻿import { Injectable, Inject } from "@angular/core";
 import { Http, Headers, RequestOptions } from "@angular/http";
 
-import { LoginForm } from "../../auth/login";
+import { LoginForm } from "../../auth/login-form";
 import { CookieService } from "./cookie.service";
 
 import "rxjs/add/operator/map";

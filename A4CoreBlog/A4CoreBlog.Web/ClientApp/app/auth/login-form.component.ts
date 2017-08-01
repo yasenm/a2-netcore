@@ -1,7 +1,9 @@
 ﻿import { Component } from "@angular/core";
-import { AuthService } from "../shared/services/auth.service";
-import { LoginForm } from "./login";
+import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+
+import { AuthService } from "../shared/services/auth.service";
+import { LoginForm } from "./login-form";
 
 @Component({
     selector: 'login-form',
@@ -17,16 +19,17 @@ export class LoginFormComponent {
         private _router: Router)
     { }
 
-    public login(loginModel: LoginForm) {
+    public login(loginForm: NgForm) {
         this.loading = true;
+        let loginModel = loginForm.value as LoginForm;
         this._auth.login(loginModel)
             .subscribe(result => {
                 if (result) {
                     this._router.navigate(['/home']);
                 } else {
                     this.error = 'Username or password is incorrect';
-                    this.loading = false;
                 }
+                this.loading = false;
             });
     }
 }
