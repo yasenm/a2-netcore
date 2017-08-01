@@ -5,10 +5,12 @@ import { LoginForm } from "../../auth/login-form";
 import { CookieService } from "./cookie.service";
 
 import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
 import { AuthResponse } from "../../auth/auth-response";
+import { BaseService } from "./base.service";
 
 @Injectable()
-export class AuthService {
+export class AuthService extends BaseService {
     private userCookieName: string = 'currentUser';
     public token: string;
 
@@ -16,7 +18,9 @@ export class AuthService {
         private _http: Http,
         private _cookieService: CookieService,
         @Inject('LOGIN_TOKEN_URL') private _loginTokenUrl: string)
-    { }
+    {
+        super();
+    }
 
     public isLoggedIn(): boolean {
         this.token = this._cookieService.getCookie(this.userCookieName);
@@ -30,7 +34,7 @@ export class AuthService {
         let loginString = JSON.stringify(loginForm);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        console.log(loginString);
+
         return this._http.post(this._loginTokenUrl, loginForm, options)
             .map(res => {
                 let authResponse = res.json() as AuthResponse;
@@ -50,7 +54,8 @@ export class AuthService {
                     // return false to indicate failed login
                     return false;
                 }
-            });
+            })
+            .catch(this.handleError);
     }
 
     public logout(): void {

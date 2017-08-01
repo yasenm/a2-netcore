@@ -13,7 +13,7 @@ import { LoginForm } from "./login-form";
 export class LoginFormComponent {
     public model: LoginForm = new LoginForm();
     public loading: boolean = false;
-    public error: string;
+    public serverError: string;
 
     constructor(private _auth: AuthService,
         private _router: Router)
@@ -26,9 +26,11 @@ export class LoginFormComponent {
             .subscribe(result => {
                 if (result) {
                     this._router.navigate(['/home']);
-                } else {
-                    this.error = 'Username or password is incorrect';
                 }
+                this.loading = false;
+            },
+            err => {
+                this.serverError = 'Username or password is incorrect';
                 this.loading = false;
             });
     }
