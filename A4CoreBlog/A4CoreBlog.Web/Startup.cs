@@ -1,3 +1,4 @@
+using A4CoreBlog.Common;
 using A4CoreBlog.Data;
 using A4CoreBlog.Data.Infrastructure;
 using A4CoreBlog.Data.Infrastructure.Mapping;
@@ -168,6 +169,11 @@ namespace A4CoreBlog_Web
                             return Task.FromResult<object>(null);
                         }
                     };
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administration", policy => policy.RequireRole(GlobalConstants.TeamMemberRole));
             });
         }
 

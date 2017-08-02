@@ -7,8 +7,7 @@ using System.IO;
 
 namespace A4CoreBlog.Web.Areas.Admin.Controllers
 {
-    [Area(GlobalConstants.AdminArea)]
-    public class ImageController : Controller
+    public class ImageController : BaseAdminController
     {
         private readonly ISystemImageService _sysImgService;
 
@@ -18,7 +17,6 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult Create()
         {
             var model = new SystemImageCreateOrEditViewModel();
@@ -26,7 +24,6 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         [ValidateAntiForgeryToken]
         public IActionResult Create(SystemImageCreateOrEditViewModel model)
         {

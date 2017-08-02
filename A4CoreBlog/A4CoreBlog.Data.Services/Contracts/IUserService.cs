@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 
 namespace A4CoreBlog.Data.Services.Contracts
 {
     public interface IUserService
     {
         T Get<T>(string username);
-        ICollection<T> GetAll<T>();
+        IQueryable<T> GetAll<T>(string role);
         T Update<T>(T model);
     }
 }

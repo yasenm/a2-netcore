@@ -8,8 +8,7 @@ using System.Linq;
 
 namespace A4CoreBlog.Web.Areas.Admin.Controllers
 {
-    [Area(GlobalConstants.AdminArea)]
-    public class PostController : Controller
+    public class PostController : BaseAdminController
     {
         private readonly IPostService _postService;
 
@@ -17,8 +16,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         {
             _postService = postService;
         }
-
-        [Authorize]
+        
         public IActionResult MyPosts()
         {
             var model = _postService.GetAll<PostListBasicViewModel>()
@@ -28,24 +26,21 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
 
             return View(model);
         }
-
-        [Authorize]
+        
         [HttpGet]
         public IActionResult Edit(int id)
         {
             var model = _postService.Get<PostEditViewModel>(id);
             return View(model);
         }
-
-        [Authorize]
+        
         [HttpGet]
         public IActionResult Create()
         {
             var model = new PostEditViewModel();
             return View("Edit", model);
         }
-
-        [Authorize]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(PostEditViewModel model)
@@ -59,8 +54,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
             }
             return View(model);
         }
-
-        [Authorize]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PostEditViewModel model)

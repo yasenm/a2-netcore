@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 
 namespace A4CoreBlog.Web.Areas.Admin.Controllers
 {
-    [Area(GlobalConstants.AdminArea)]
-    public class BlogController : Controller
+    public class BlogController : BaseAdminController
     {
         private readonly IBlogService _blogService;
 
@@ -17,14 +16,12 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         {
             _blogService = blogService;
         }
-
-        [Authorize]
+        
         public IActionResult Index()
         {
             return View();
         }
-
-        [Authorize]
+        
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -35,8 +32,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
             }
             return RedirectToAction(nameof(Index), "blog", new { @area = GlobalConstants.AdminArea });
         }
-
-        [Authorize]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(BlogEditViewModel model)

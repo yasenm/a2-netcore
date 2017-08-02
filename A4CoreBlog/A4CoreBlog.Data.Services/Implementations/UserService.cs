@@ -23,9 +23,11 @@ namespace A4CoreBlog.Data.Services.Implementations
             return result;
         }
 
-        public ICollection<T> GetAll<T>()
+        public IQueryable<T> GetAll<T>(string role)
         {
-            return _data.Users.All().ProjectTo<T>().ToList();
+            return _data.Users.All()
+                .Where(u => u.Claims.FirstOrDefault(c => c.ClaimValue == role) != null)
+                .ProjectTo<T>();
         }
 
         public T Update<T>(T model)

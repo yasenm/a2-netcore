@@ -29,7 +29,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
             {
                 model = model.Where(p => p.BlogId == blogId);
             }
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             return model;
         }
 

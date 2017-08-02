@@ -5,8 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace A4CoreBlog.Web.Areas.Admin.Controllers
 {
-    [Area(GlobalConstants.AdminArea)]
-    public class HomeController : Controller
+    public class HomeController : BaseAdminController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -14,8 +13,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         {
             _logger = logger;
         }
-
-        [Authorize]
+        
         public IActionResult Index()
         {
             _logger.LogInformation($"{nameof(Index)} called from - {nameof(HomeController)}");

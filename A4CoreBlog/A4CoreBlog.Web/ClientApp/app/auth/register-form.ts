@@ -1,3 +1,3 @@
-﻿export class RegisterForm implements LoginForm {
+﻿export class RegisterForm {
 
 }

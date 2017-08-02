@@ -1,4 +1,5 @@
-﻿using A4CoreBlog.Data.Infrastructure;
+﻿using A4CoreBlog.Common;
+using A4CoreBlog.Data.Infrastructure;
 using A4CoreBlog.Data.Models;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.UnitOfWork;
@@ -54,7 +55,10 @@ namespace A4CoreBlog.Data.Services.Implementations
         {
             var userIdentity = Mapper.Map<User>(userModel);
             var result = await _userManager.CreateAsync(userIdentity, password);
-
+            if (result.Succeeded)
+            {
+                await _userManager.AddClaimAsync(userIdentity, new Claim("role", GlobalConstants.RegularUserRole));
+            }
             return result;
         }
 

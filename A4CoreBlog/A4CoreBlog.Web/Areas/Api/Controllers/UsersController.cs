@@ -21,7 +21,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         public IEnumerable<UserBaseViewModel> All()
         {
             Thread.Sleep(2000);
-            return _userService.GetAll<UserBaseViewModel>();
+            return _userService.GetAll<UserBaseViewModel>(GlobalConstants.TeamMemberRole);
         }
 
         [HttpGet]

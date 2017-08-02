@@ -71,7 +71,7 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.TeamMemberRole)]
         public async Task<int> RandomN()
         {
             return 42;
