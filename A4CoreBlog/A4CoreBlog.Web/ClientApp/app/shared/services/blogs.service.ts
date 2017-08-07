@@ -1,8 +1,6 @@
 ﻿import { Inject, Injectable } from '@angular/core';
 import { Http, RequestOptions } from '@angular/http';
 
-import { Observable } from 'rxjs';
-
 @Injectable()
 export class BlogsService {
     constructor(private _http: Http, @Inject('ORIGIN_URL') private originUrl: string) { }

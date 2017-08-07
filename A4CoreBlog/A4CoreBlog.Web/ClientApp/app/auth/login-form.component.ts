@@ -15,15 +15,14 @@ export class LoginFormComponent {
     public loading: boolean = false;
     public serverError: string;
 
-    constructor(private _auth: AuthService,
-        private _router: Router)
-    { }
+    constructor(private _auth: AuthService, private _router: Router) { }
 
     public login(loginForm: NgForm) {
         this.loading = true;
         let loginModel = loginForm.value as LoginForm;
         this._auth.login(loginModel)
-            .subscribe(result => {
+            .subscribe(
+            result => {
                 if (result) {
                     this._router.navigate(['/home']);
                 }

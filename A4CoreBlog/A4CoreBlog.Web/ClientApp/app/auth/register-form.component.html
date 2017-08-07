@@ -1,1 +1,154 @@
-﻿<h1>Register</h1>
+﻿<simple-loader *ngIf="loading"></simple-loader>
+
+<div class="col-md-12 text-center row" *ngIf="!loading">
+    <div *ngIf="!success">
+        <form class="col-md-12"
+              novalidate
+              (ngSubmit)="register()"
+              [formGroup]="userForm">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group"
+                             [ngClass]="{'has-danger': (userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid}">
+                            <label class="form-control-label"
+                                   for="firstNameId">First Name</label>
+                            <input type="text" id="firstNameId"
+                                   class="form-control"
+                                   required
+                                   placeholder="First Name (required)"
+                                   formControlName="firstName" />
+                            <div class="form-control-feedback"
+                                 *ngIf="(userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid">
+                                <span *ngIf="userForm.get('firstName').errors.required">
+                                    First name is required.
+                                </span>
+                                <span *ngIf="userForm.get('firstName').errors.minlength">
+                                    First name length must be atleast 4 characters.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group"
+                             [ngClass]="{'has-danger': (userForm.get('lastName').touched || userForm.get('lastName').dirty) && !userForm.get('lastName').valid}">
+                            <label class="form-control-label"
+                                   for="lastNameId">Last Name</label>
+                            <input type="text" id="lastNameId"
+                                   class="form-control"
+                                   placeholder="Last Name (required)"
+                                   formControlName="lastName" />
+                            <div class="form-control-feedback"
+                                 *ngIf="(userForm.get('lastName').touched || userForm.get('lastName').dirty) && !userForm.get('lastName').valid">
+                                <span *ngIf="userForm.get('lastName').errors.required">
+                                    Last name is required.
+                                </span>
+                                <span *ngIf="userForm.get('lastName').errors.minlength">
+                                    Last name length must be atleast 4 characters.
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group"
+                             [ngClass]="{'has-danger': emailMessage}">
+                            <label class="form-control-label"
+                                   for="emailId">Email</label>
+                            <input type="text" id="emailId"
+                                   class="form-control"
+                                   placeholder="Email (required)"
+                                   formControlName="email" />
+                            <div class="form-control-feedback"
+                                 *ngIf="emailMessage">
+                                {{emailMessage}}
+                            </div>
+                        </div>
+                    </div>
+                    <div formGroupName="passwordGroup"
+                         class="row col-md-12 no-margin no-padding"
+                         [ngClass]="{'has-danger': userForm.get('passwordGroup').errors}">
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                 [ngClass]="{'has-danger':
+                         (userForm.get('passwordGroup.password').touched || userForm.get('passwordGroup.password').dirty) &&
+                         !userForm.get('passwordGroup.password').valid}">
+                                <label class="form-control-label"
+                                       for="passwordId">Password</label>
+                                <input type="password" id="passwordId"
+                                       class="form-control"
+                                       placeholder="Password (required)"
+                                       formControlName="password" />
+                                <div class="form-control-feedback"
+                                     *ngIf="(userForm.get('passwordGroup.password').touched || userForm.get('passwordGroup.password').dirty) &&
+                                    !userForm.get('passwordGroup.password').valid">
+                                    <span *ngIf="userForm.get('passwordGroup.password').errors.required">
+                                        Password is required.
+                                    </span>
+                                    <span *ngIf="userForm.get('passwordGroup.password').errors.minlength">
+                                        Password min length must be 6.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group"
+                                 [ngClass]="{'has-danger':
+                         (userForm.get('passwordGroup.passwordConfirm').touched || userForm.get('passwordGroup.passwordConfirm').dirty) &&
+                         !userForm.get('passwordGroup.passwordConfirm').valid}">
+                                <label class="form-control-label"
+                                       for="passwordConfirmId">Confirm Password</label>
+                                <input type="password" id="passwordConfirmId"
+                                       class="form-control"
+                                       placeholder="Confirm Password (required)"
+                                       formControlName="passwordConfirm" />
+                                <div class="form-control-feedback"
+                                     *ngIf="(userForm.get('passwordGroup.passwordConfirm').touched ||
+                                    userForm.get('passwordGroup.passwordConfirm').dirty) &&
+                                    (!userForm.get('passwordGroup.passwordConfirm').valid ||
+                                    userForm.get('passwordGroup').errors)">
+                                    <span *ngIf="userForm.get('passwordGroup.passwordConfirm').errors?.required">
+                                        Password is required.
+                                    </span>
+                                    <span *ngIf="userForm.get('passwordGroup.passwordConfirm').errors?.minlength">
+                                        Password min length must be 6.
+                                    </span>
+                                    <span *ngIf="userForm.get('passwordGroup').errors?.match">
+                                        The confirmation does not match the password.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 has-danger form-group" *ngIf="errors">
+                        <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+                            {{error}}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button class="btn btn-primary"
+                                type="submit"
+                                [disabled]="!userForm.valid">
+                            Register
+                        </button>
+                        <button class="btn btn-danger"
+                                type="button"
+                                (click)="populateTestData()">
+                            Populate Test Data
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="success-alert-container col-md-12" *ngIf="success">
+        <div class="align-middle alert alert-success" role="alert">
+            <strong>Success!</strong> You can now <a [routerLink]="['/login']" class="text-primary">login</a>.
+        </div>
+    </div>
+</div>
+
+<br>Dirty: {{userForm.dirty}}
+<br>Touched: {{userForm.touched}}
+<br>Valid: {{userForm.valid}}
+<br>Value: {{userForm.value | json}}

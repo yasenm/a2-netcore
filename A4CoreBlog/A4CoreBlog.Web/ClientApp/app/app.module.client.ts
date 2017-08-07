@@ -14,10 +14,10 @@ import { sharedConfig } from './app.module.shared';
         ...sharedConfig.imports
     ],
     providers: [
-        { provide: 'ORIGIN_URL', useValue: location.origin },
-        { provide: 'LOGIN_URL', useValue: location.origin + '/auth/login?returnurl=' },
-        { provide: 'LOGIN_TOKEN_URL', useValue: location.origin + '/api/clientauth/token' }
+        { provide: 'ORIGIN_URL', useValue: location.origin }
+        //{ provide: 'LOGIN_URL', useValue: location.origin + '/auth/login?returnurl=' },
+        //{ provide: 'LOGIN_TOKEN_URL', useValue: location.origin + '/api/clientauth/token' },
+        //{ provide: 'REGISTER_URL', useValue: location.origin + '/api/clientauth/register' }
     ]
 })
-export class AppModule {
-}
+export class AppModule { }

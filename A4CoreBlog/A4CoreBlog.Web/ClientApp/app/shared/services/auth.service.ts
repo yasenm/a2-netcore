@@ -8,6 +8,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import { AuthResponse } from "../../auth/auth-response";
 import { BaseService } from "./base.service";
+import { UserRegister } from "../../auth/register-form";
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -17,8 +18,7 @@ export class AuthService extends BaseService {
     constructor(
         private _http: Http,
         private _cookieService: CookieService,
-        @Inject('LOGIN_TOKEN_URL') private _loginTokenUrl: string)
-    {
+        @Inject('ORIGIN_URL') private originUrl: string) {
         super();
     }
 
@@ -35,7 +35,7 @@ export class AuthService extends BaseService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
-        return this._http.post(this._loginTokenUrl, loginForm, options)
+        return this._http.post(this.originUrl + '/api/clientauth/token', loginForm, options)
             .map(res => {
                 let authResponse = res.json() as AuthResponse;
                 let token = res.json() && res.json().token;
@@ -47,7 +47,7 @@ export class AuthService extends BaseService {
                     this._cookieService.setCookie(this.userCookieName,
                         authResponse.token,
                         new Date(authResponse.expiration).toUTCString());
-                    
+
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -59,9 +59,16 @@ export class AuthService extends BaseService {
     }
 
     public logout(): void {
-        // clear token remove user from local storage to log user out
         this.token = null;
         this._cookieService.deleteCookie(this.userCookieName);
-        //localStorage.removeItem('currentUser');
+    }
+
+    public register(registerModel: UserRegister): any {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this.originUrl + '/api/clientauth/register', registerModel, options)
+            .map(res => { return res })
+            .catch(this.handleError);
     }
 }

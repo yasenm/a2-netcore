@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "ClientApp/app/auth/register-form.component.min.html",
+    "inputFiles": [
+      "ClientApp/app/auth/register-form.component.html"
+    ]
+  }
+]
