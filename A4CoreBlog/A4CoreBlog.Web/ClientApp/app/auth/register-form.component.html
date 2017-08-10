@@ -10,107 +10,86 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group"
-                             [ngClass]="{'has-danger': (userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid}">
+                             [ngClass]="{'has-danger': firstNameErrMessage, 'has-success': this.userForm.get('firstName').touched && !firstNameErrMessage}">
                             <label class="form-control-label"
                                    for="firstNameId">First Name</label>
                             <input type="text" id="firstNameId"
                                    class="form-control"
-                                   required
+                                   [ngClass]="{'form-control-success': this.userForm.get('firstName').touched && !firstNameErrMessage}"
                                    placeholder="First Name (required)"
                                    formControlName="firstName" />
                             <div class="form-control-feedback"
-                                 *ngIf="(userForm.get('firstName').touched || userForm.get('firstName').dirty) && !userForm.get('firstName').valid">
-                                <span *ngIf="userForm.get('firstName').errors.required">
-                                    First name is required.
-                                </span>
-                                <span *ngIf="userForm.get('firstName').errors.minlength">
-                                    First name length must be atleast 4 characters.
-                                </span>
+                                 *ngIf="firstNameErrMessage">
+                                {{firstNameErrMessage}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group"
-                             [ngClass]="{'has-danger': (userForm.get('lastName').touched || userForm.get('lastName').dirty) && !userForm.get('lastName').valid}">
+                             [ngClass]="{'has-danger': lastNameErrMessage, 'has-success': this.userForm.get('lastName').touched && !lastNameErrMessage}">
                             <label class="form-control-label"
                                    for="lastNameId">Last Name</label>
                             <input type="text" id="lastNameId"
                                    class="form-control"
+                                   [ngClass]="{'form-control-success': this.userForm.get('lastName').touched && !lastNameErrMessage}"
                                    placeholder="Last Name (required)"
                                    formControlName="lastName" />
                             <div class="form-control-feedback"
-                                 *ngIf="(userForm.get('lastName').touched || userForm.get('lastName').dirty) && !userForm.get('lastName').valid">
-                                <span *ngIf="userForm.get('lastName').errors.required">
-                                    Last name is required.
-                                </span>
-                                <span *ngIf="userForm.get('lastName').errors.minlength">
-                                    Last name length must be atleast 4 characters.
-                                </span>
+                                 *ngIf="lastNameErrMessage">
+                                {{lastNameErrMessage}}
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group"
-                             [ngClass]="{'has-danger': emailMessage}">
+                             [ngClass]="{'has-danger': emailErrMessage, 'has-success': this.userForm.get('email').touched && !emailErrMessage}">
                             <label class="form-control-label"
                                    for="emailId">Email</label>
                             <input type="text" id="emailId"
                                    class="form-control"
+                                   [ngClass]="{'form-control-success': this.userForm.get('email').touched && !emailErrMessage}"
                                    placeholder="Email (required)"
                                    formControlName="email" />
                             <div class="form-control-feedback"
-                                 *ngIf="emailMessage">
-                                {{emailMessage}}
+                                 *ngIf="emailErrMessage">
+                                {{emailErrMessage}}
                             </div>
                         </div>
                     </div>
                     <div formGroupName="passwordGroup"
                          class="row col-md-12 no-margin no-padding"
-                         [ngClass]="{'has-danger': userForm.get('passwordGroup').errors}">
+                         [ngClass]="{'has-danger': passwordErrMessage}">
                         <div class="col-md-12">
                             <div class="form-group"
-                                 [ngClass]="{'has-danger':
-                         (userForm.get('passwordGroup.password').touched || userForm.get('passwordGroup.password').dirty) &&
-                         !userForm.get('passwordGroup.password').valid}">
+                                 [ngClass]="{'has-danger': passwordErrMessage, 'has-success': this.userForm.get('passwordGroup.password').touched && !passwordErrMessage}">
                                 <label class="form-control-label"
                                        for="passwordId">Password</label>
                                 <input type="password" id="passwordId"
                                        class="form-control"
+                                       [ngClass]="{'form-control-success': this.userForm.get('passwordGroup.password').touched && !passwordErrMessage}"
                                        placeholder="Password (required)"
                                        formControlName="password" />
                                 <div class="form-control-feedback"
-                                     *ngIf="(userForm.get('passwordGroup.password').touched || userForm.get('passwordGroup.password').dirty) &&
-                                    !userForm.get('passwordGroup.password').valid">
-                                    <span *ngIf="userForm.get('passwordGroup.password').errors.required">
-                                        Password is required.
-                                    </span>
-                                    <span *ngIf="userForm.get('passwordGroup.password').errors.minlength">
-                                        Password min length must be 6.
-                                    </span>
+                                     *ngIf="passwordErrMessage">
+                                    {{passwordErrMessage}}
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group"
-                                 [ngClass]="{'has-danger':
-                         (userForm.get('passwordGroup.passwordConfirm').touched || userForm.get('passwordGroup.passwordConfirm').dirty) &&
-                         !userForm.get('passwordGroup.passwordConfirm').valid}">
+                                 [ngClass]="{'has-danger': passwordConfirmErrMessage || userForm.get('passwordGroup').errors,
+                                             'has-success': this.userForm.get('passwordGroup.passwordConfirm').touched && !passwordConfirmErrMessage}">
                                 <label class="form-control-label"
                                        for="passwordConfirmId">Confirm Password</label>
                                 <input type="password" id="passwordConfirmId"
                                        class="form-control"
+                                       [ngClass]="{'form-control-success': this.userForm.get('passwordGroup.passwordConfirm').touched && !passwordConfirmErrMessage}"
                                        placeholder="Confirm Password (required)"
                                        formControlName="passwordConfirm" />
                                 <div class="form-control-feedback"
-                                     *ngIf="(userForm.get('passwordGroup.passwordConfirm').touched ||
-                                    userForm.get('passwordGroup.passwordConfirm').dirty) &&
-                                    (!userForm.get('passwordGroup.passwordConfirm').valid ||
-                                    userForm.get('passwordGroup').errors)">
-                                    <span *ngIf="userForm.get('passwordGroup.passwordConfirm').errors?.required">
-                                        Password is required.
-                                    </span>
-                                    <span *ngIf="userForm.get('passwordGroup.passwordConfirm').errors?.minlength">
-                                        Password min length must be 6.
+                                     *ngIf="passwordConfirmErrMessage || userForm.get('passwordGroup').errors">
+                                    <span *ngIf="passwordConfirmErrMessage">
+                                        {{passwordConfirmErrMessage}}
                                     </span>
                                     <span *ngIf="userForm.get('passwordGroup').errors?.match">
                                         The confirmation does not match the password.
@@ -119,8 +98,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 has-danger form-group" *ngIf="errors">
-                        <div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+                    <div class="col-md-12 has-danger form-group" *ngIf="serverErrors">
+                        <div class="alert alert-danger" role="alert" *ngFor="let error of serverErrors">
                             {{error}}
                         </div>
                     </div>

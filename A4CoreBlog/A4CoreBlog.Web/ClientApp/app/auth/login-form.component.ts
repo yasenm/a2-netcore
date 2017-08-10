@@ -7,8 +7,7 @@ import { LoginForm } from "./login-form";
 
 @Component({
     selector: 'login-form',
-    templateUrl: './login-form.component.html',
-    providers: [AuthService]
+    templateUrl: './login-form.component.html'
 })
 export class LoginFormComponent {
     public model: LoginForm = new LoginForm();

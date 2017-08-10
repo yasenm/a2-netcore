@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject } from "@angular/core";
+﻿import { Injectable, Inject, EventEmitter } from "@angular/core";
 import { Http, Headers, RequestOptions } from "@angular/http";
 
 import { LoginForm } from "../../auth/login-form";
@@ -12,6 +12,7 @@ import { UserRegister } from "../../auth/register-form";
 
 @Injectable()
 export class AuthService extends BaseService {
+    public logginStateChange: EventEmitter<boolean> = new EventEmitter();
     private userCookieName: string = 'currentUser';
     public token: string;
 
@@ -48,6 +49,8 @@ export class AuthService extends BaseService {
                         authResponse.token,
                         new Date(authResponse.expiration).toUTCString());
 
+                    console.log(this.isLoggedIn());
+                    this.logginStateChange.emit(this.isLoggedIn());
                     // return true to indicate successful login
                     return true;
                 } else {
@@ -61,6 +64,7 @@ export class AuthService extends BaseService {
     public logout(): void {
         this.token = null;
         this._cookieService.deleteCookie(this.userCookieName);
+        this.logginStateChange.emit(this.isLoggedIn());
     }
 
     public register(registerModel: UserRegister): any {
@@ -70,5 +74,12 @@ export class AuthService extends BaseService {
         return this._http.post(this.originUrl + '/api/clientauth/register', registerModel, options)
             .map(res => { return res })
             .catch(this.handleError);
+    }
+
+    public getCurrentUser(): any {
+        if (this.isLoggedIn()) {
+
+        }
+        return null;
     }
 }

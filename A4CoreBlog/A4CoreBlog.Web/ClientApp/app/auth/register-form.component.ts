@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from "@angular/fo
 
 import { UserRegister } from "./register-form";
 import { AuthService } from "../shared/services/auth.service";
+import { ValidationService } from "../shared/services/validation.service";
 
 function passwordMatcher(c: AbstractControl) {
     let password = c.get('password');
@@ -20,35 +21,39 @@ function passwordMatcher(c: AbstractControl) {
     styleUrls: ['./register-form.component.css']
 })
 export class RegisterFormComponent implements OnInit {
+    debounceTimeForForm: number = 1000;
     userForm: FormGroup;
     user: UserRegister = new UserRegister();
-    emailMessage: string;
-    errors: string[];
+    firstNameErrMessage: string = '';
+    lastNameErrMessage: string = '';
+    emailErrMessage: string = '';
+    passwordErrMessage: string = '';
+    passwordConfirmErrMessage: string = '';
+    serverErrors: string[];
     loading: boolean = false;
     success: boolean = false;
 
-    private validationMessages = {
-        required: 'Please enter you email address.',
-        pattern: 'Please enter a valid email address.'
-    };
-
-    constructor(private _auth: AuthService, private _formBulder: FormBuilder) { }
+    constructor(private _auth: AuthService,
+        private _formBulder: FormBuilder,
+        private _valService: ValidationService) { }
 
     ngOnInit(): void {
         this.userForm = this._formBulder.group({
-            firstName: ['', [Validators.required, Validators.minLength(4)]],
-            lastName: ['', [Validators.required, Validators.minLength(4)]],
+            firstName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+            lastName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
             email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]],
             passwordGroup: this._formBulder.group({
-                password: ['', [Validators.required, Validators.minLength(6)]],
-                passwordConfirm: ['', [Validators.required, Validators.minLength(6)]],
+                password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
+                passwordConfirm: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
             }, { validator: passwordMatcher }),
             profession: null,
         });
 
-        const emailControl = this.userForm.get('email');
-        emailControl.valueChanges.subscribe(value =>
-            this.setMessage(emailControl))
+        this._valService.checkAndSetIfHasError(this, this.userForm, 'firstName', this.debounceTimeForForm, { minlength: 4, maxlength: 50 });
+        this._valService.checkAndSetIfHasError(this, this.userForm, 'lastName', this.debounceTimeForForm, { minlength: 4, maxlength: 50 });
+        this._valService.checkAndSetIfHasError(this, this.userForm, 'email');
+        this._valService.checkAndSetIfHasError(this, this.userForm, 'passwordGroup.password', this.debounceTimeForForm, { minlength: 6});
+        this._valService.checkAndSetIfHasError(this, this.userForm, 'passwordGroup.passwordConfirm', this.debounceTimeForForm, { minlength: 6 });
     }
 
     register(): void {
@@ -56,7 +61,7 @@ export class RegisterFormComponent implements OnInit {
         this.user = this.userForm.value as UserRegister;
         this.user.password = this.userForm.get('passwordGroup.password').value;
         this.user.passwordConfirm = this.userForm.get('passwordGroup.passwordConfirm').value;
-        this.errors = null;
+        this.serverErrors = null;
 
         this._auth.register(this.user)
             .subscribe(res => {
@@ -65,7 +70,7 @@ export class RegisterFormComponent implements OnInit {
             },
             err => {
                 console.log(err);
-                this.errors = err;
+                this.serverErrors = err;
                 this.loading = false;
             });
     }
@@ -77,12 +82,4 @@ export class RegisterFormComponent implements OnInit {
             email: 'yasen8707@abv.bg',
         })
     }
-
-    setMessage(c: AbstractControl): void {
-        this.emailMessage = '';
-        if ((c.touched || c.dirty) && c.errors) {
-            this.emailMessage = Object.keys(c.errors).map(key =>
-                this.validationMessages[key]).join(' ');
-        }
-    };
 }

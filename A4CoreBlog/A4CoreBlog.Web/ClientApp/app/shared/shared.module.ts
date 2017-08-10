@@ -8,6 +8,8 @@ import { NavMenuComponent } from './navmenu/navmenu.component';
 import { FooterMenuComponent } from "./footer-menu/footer-menu.component";
 import { NgxPaginationModule } from "ngx-pagination/dist/ngx-pagination";
 import { RouterModule } from "@angular/router";
+import { NavUserComponent } from "./navmenu/nav-user.component";
+import { AuthService } from "./services/auth.service";
 
 @NgModule({
     imports: [
@@ -24,13 +26,18 @@ import { RouterModule } from "@angular/router";
         NgxPaginationModule,
         SimpleLoaderComponent,
         NavMenuComponent,
-        FooterMenuComponent
+        FooterMenuComponent,
+        NavUserComponent
     ],
     declarations: [
         SimpleLoaderComponent,
         NavMenuComponent,
-        FooterMenuComponent
+        FooterMenuComponent,
+        NavUserComponent
     ],
+    providers: [
+        AuthService
+    ]
 })
 export class SharedModule {
 }

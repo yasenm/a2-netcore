@@ -1,0 +1,19 @@
+﻿<a class="nav-link dropdown-toggle"
+   href="#"
+   id="nav-userDropdownMenuLink" 
+   data-toggle="dropdown" 
+   aria-haspopup="true" 
+   aria-expanded="false">
+    Dropdown link
+</a>
+<div class="dropdown-menu" aria-labelledby="nav-userDropdownMenuLink">
+    <a class="dropdown-item"
+       [routerLink]="['/login']"
+       *ngIf="!loggedIn">Login</a>
+    <a class="dropdown-item"
+       [routerLink]="['/register']"
+       *ngIf="!loggedIn">Register</a>
+    <a class="dropdown-item"
+       (click)="logout()"
+       *ngIf="loggedIn">Logout</a>
+</div>

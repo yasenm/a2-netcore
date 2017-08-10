@@ -4,8 +4,8 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { LoginFormComponent } from "./login-form.component";
 import { RegisterFormComponent } from "./register-form.component";
-import { AuthService } from "../shared/services/auth.service";
 import { SharedModule } from "../shared/shared.module";
+import { ValidationService } from "../shared/services/validation.service";
 
 @NgModule({
     imports: [
@@ -20,10 +20,8 @@ import { SharedModule } from "../shared/shared.module";
         LoginFormComponent,
         RegisterFormComponent
     ],
-    exports: [
-    ],
     providers: [
-        AuthService
+        ValidationService
     ]
 })
 export class AuthModule {
