@@ -1,10 +1,16 @@
 ﻿<a class="nav-link dropdown-toggle"
    href="#"
-   id="nav-userDropdownMenuLink" 
-   data-toggle="dropdown" 
-   aria-haspopup="true" 
+   id="nav-userDropdownMenuLink"
+   data-toggle="dropdown"
+   aria-haspopup="true"
    aria-expanded="false">
-    Dropdown link
+    <span *ngIf="!user">
+        Authenticate
+    </span>
+    <span *ngIf="user">
+        <img [src]="user.avatarLink" alt="Alternate Text" class="user-thumbnail"/>
+        {{user.firstName}} {{user.lastName}}
+    </span>
 </a>
 <div class="dropdown-menu" aria-labelledby="nav-userDropdownMenuLink">
     <a class="dropdown-item"

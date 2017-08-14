@@ -3,6 +3,8 @@ using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.UnitOfWork;
 using AutoMapper;
 using A4CoreBlog.Data.Models;
+using System.Linq;
+using AutoMapper.QueryableExtensions;
 
 namespace A4CoreBlog.Data.Services.Implementations
 {
@@ -37,6 +39,13 @@ namespace A4CoreBlog.Data.Services.Implementations
             var dbModel = _data.Images.GetById(id);
             var resultModel = Mapper.Map<T>(dbModel);
             return resultModel;
+        }
+
+        public IQueryable<T> GetCollection<T>()
+        {
+            var result = _data.Images.All()
+                .ProjectTo<T>();
+            return result;
         }
     }
 }

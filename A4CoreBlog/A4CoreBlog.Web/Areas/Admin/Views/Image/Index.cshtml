@@ -1,0 +1,35 @@
+﻿@model IQueryable<AdminListImageViewModel>
+
+<div class="row text-center">
+    <div class="col-md-12 padding-10">
+        <a asp-action="Create" asp-controller="Image" asp-area="@GlobalConstants.AdminArea" class="btn btn-primary">Add new image</a>
+    </div>
+
+    @if (Model.Count() > 0)
+    {
+        foreach (var img in Model)
+        {
+            // add cell for each image
+            <div class="col-md-4 col-lg-3 col-sm-6 padding-10">
+                <div class="padding-10 border-box-shadow">
+                    <div>@img.Title</div>
+                    <div>
+                        Link:
+                        <a target="_blank"
+                           href="@Url.Action("Content", "Images", new { @area = GlobalConstants.APIArea, id = img.Id })">
+                            @Url.Action("Content", "Images", new { @area = GlobalConstants.APIArea, id = img.Id })
+                        </a>
+                    </div>
+                    <div>Id : @img.Id</div>
+                    <img class="img-fluid grid-image"
+                         src="@Url.Action("Content", "Images", new { @area = GlobalConstants.APIArea, id = img.Id })"
+                         alt="@img.Alt" />
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h1>No images still added to site...</h1>
+    }
+</div>

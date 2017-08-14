@@ -23,6 +23,14 @@ export class AuthService extends BaseService {
         super();
     }
 
+    public getAuthTokenHeaders(): RequestOptions {
+        let headers = new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.token
+        });
+        return new RequestOptions({ headers: headers });
+    } 
+
     public isLoggedIn(): boolean {
         this.token = this._cookieService.getCookie(this.userCookieName);
         if (this.token) {

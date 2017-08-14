@@ -1,1 +1,7 @@
-﻿
+﻿.user-thumbnail {
+    height: 30px;
+    width: 30px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    margin-right: 5px;
+}

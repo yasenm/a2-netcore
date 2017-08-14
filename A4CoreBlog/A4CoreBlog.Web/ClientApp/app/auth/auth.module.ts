@@ -19,9 +19,6 @@ import { ValidationService } from "../shared/services/validation.service";
     declarations: [
         LoginFormComponent,
         RegisterFormComponent
-    ],
-    providers: [
-        ValidationService
     ]
 })
 export class AuthModule {

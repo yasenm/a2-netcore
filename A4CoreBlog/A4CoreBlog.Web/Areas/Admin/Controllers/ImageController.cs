@@ -16,6 +16,12 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
             _sysImgService = sysImgService;
         }
 
+        public IActionResult Index()
+        {
+            var model = _sysImgService.GetCollection<AdminListImageViewModel>();
+            return View(model);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

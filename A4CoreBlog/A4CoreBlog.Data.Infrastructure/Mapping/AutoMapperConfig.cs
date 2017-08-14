@@ -36,6 +36,7 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
 
                 cfg.CreateMap<SystemImage, SystemImageCreateOrEditViewModel>().ReverseMap();
                 cfg.CreateMap<SystemImage, SystemImageContentViewModel>().ReverseMap();
+                cfg.CreateMap<SystemImage, AdminListImageViewModel>().ReverseMap();
             });
         }
     }

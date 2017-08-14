@@ -10,6 +10,8 @@ import { NgxPaginationModule } from "ngx-pagination/dist/ngx-pagination";
 import { RouterModule } from "@angular/router";
 import { NavUserComponent } from "./navmenu/nav-user.component";
 import { AuthService } from "./services/auth.service";
+import { ValidationService } from "./services/validation.service";
+import { ProfileService } from "./services/profile.service";
 
 @NgModule({
     imports: [
@@ -36,7 +38,9 @@ import { AuthService } from "./services/auth.service";
         NavUserComponent
     ],
     providers: [
-        AuthService
+        AuthService,
+        ValidationService,
+        ProfileService
     ]
 })
 export class SharedModule {
