@@ -10,8 +10,7 @@ using System.Threading.Tasks;
 
 namespace A4CoreBlog.Web.Areas.Api.Controllers
 {
-    [Area(GlobalConstants.APIArea)]
-    public class ClientAuthController : Controller
+    public class ClientAuthController : BaseApiAreaController
     {
         private readonly IAuthService _authService;
         private readonly IOptions<AppConfiguration> _appConfiguration;

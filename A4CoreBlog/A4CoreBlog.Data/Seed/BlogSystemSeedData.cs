@@ -16,7 +16,7 @@ namespace A4CoreBlog.Data.Seed
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public BlogSystemSeedData(BlogSystemContext context, 
+        public BlogSystemSeedData(BlogSystemContext context,
             UserManager<User> userManager,
             RoleManager<IdentityRole> roleManager)
         {
@@ -30,10 +30,12 @@ namespace A4CoreBlog.Data.Seed
             //await _context.Database.EnsureDeletedAsync();
             //if (await _context.Database.EnsureCreatedAsync())
             //{
-                await SeedRoles();
-                await SeedUsers();
-                await SeedBlogs();
-                await SeedPosts();
+            await SeedRoles();
+            await SeedUsers();
+            await SeedBlogs();
+            await SeedBlogsComments();
+            await SeedPosts();
+            await SeedPostsComments();
             //}
         }
 
@@ -150,6 +152,31 @@ namespace A4CoreBlog.Data.Seed
             }
         }
 
+        private async Task SeedBlogsComments()
+        {
+            if (!_context.BlogComments.Any() && _context.Blogs.Any())
+            {
+                var blogs = _context.Blogs.ToList();
+                foreach (var blog in blogs)
+                {
+                    var randomNumberOfComments = NumberGenerator.RandomNumber(0, 4);
+                    for (int i = 0; i < randomNumberOfComments; i++)
+                    {
+                        var baseComment = await GenerateAndAddRandomComment();
+                        var blogComment = new BlogComment
+                        {
+                            CommentId = baseComment.Id,
+                            BlogId = blog.Id,
+                            CreatedOn = DateTime.Now
+                        };
+
+                        await _context.BlogComments.AddAsync(blogComment);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
+
         private async Task SeedPosts()
         {
             if (!_context.Posts.Any())
@@ -174,6 +201,46 @@ namespace A4CoreBlog.Data.Seed
                     await _context.SaveChangesAsync();
                 }
             }
+        }
+
+        private async Task SeedPostsComments()
+        {
+            if (!_context.PostComments.Any() && _context.Posts.Any())
+            {
+                var posts = _context.Posts.ToList();
+                foreach (var post in posts)
+                {
+                    var randomNumberOfComments = NumberGenerator.RandomNumber(0, 4);
+                    for (int i = 0; i < randomNumberOfComments; i++)
+                    {
+                        var baseComment = await GenerateAndAddRandomComment();
+                        var postComment = new PostComment
+                        {
+                            CommentId = baseComment.Id,
+                            PostId = post.Id,
+                            CreatedOn = DateTime.Now
+                        };
+
+                        await _context.PostComments.AddAsync(postComment);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+            }
+        }
+
+        private async Task<Comment> GenerateAndAddRandomComment()
+        {
+            var users = _context.Users.ToList();
+            var comment = new Comment
+            {
+                Content = StringGenerator.RandomStringWithSpaces(20, 300),
+                CreatedOn = DateTime.Now,
+                AuthorId = users[NumberGenerator.RandomNumber(0, users.Count - 1)].Id
+            };
+
+            await _context.Comments.AddAsync(comment);
+            await _context.SaveChangesAsync();
+            return comment;
         }
     }
 }

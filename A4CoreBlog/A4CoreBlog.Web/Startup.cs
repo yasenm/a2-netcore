@@ -66,6 +66,7 @@ namespace A4CoreBlog_Web
             // internal services
             services.AddScoped<IBlogService, BlogService>();
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ISystemImageService, SystemImageService>();
             services.AddScoped<IAuthService, AuthService>();

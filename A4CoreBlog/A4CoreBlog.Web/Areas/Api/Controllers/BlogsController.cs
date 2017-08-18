@@ -8,8 +8,7 @@ using System.Threading;
 
 namespace A4CoreBlog.Web.Areas.Api.Controllers
 {
-    [Area(GlobalConstants.APIArea)]
-    public class BlogsController : Controller
+    public class BlogsController : BaseApiAreaController
     {
         private IBlogService _blogService;
 

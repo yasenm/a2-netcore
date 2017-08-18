@@ -7,8 +7,7 @@ using System.Threading;
 
 namespace A4CoreBlog.Web.Areas.Api.Controllers
 {
-    [Area(GlobalConstants.APIArea)]
-    public class PostsController : Controller
+    public class PostsController : BaseApiAreaController
     {
         private readonly IPostService _postService;
 

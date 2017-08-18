@@ -1,8 +1,6 @@
 ﻿using A4CoreBlog.Common;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.ViewModels;
-using A4CoreBlog.Web.Extensions;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

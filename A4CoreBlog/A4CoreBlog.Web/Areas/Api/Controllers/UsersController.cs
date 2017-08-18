@@ -8,8 +8,7 @@ using System.Threading;
 
 namespace A4CoreBlog.Web.Areas.Api.Controllers
 {
-    [Area(GlobalConstants.APIArea)]
-    public class UsersController : Controller
+    public class UsersController : BaseApiAreaController
     {
         private readonly IUserService _userService;
 
@@ -34,20 +33,8 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         [Authorize]
         public UserProfileViewModel Profile()
         {
-            var username = string.Empty;
-            foreach (var claim in User.Claims)
-            {
-                if (claim.Type.Contains("nameidentifier") &&  claim.Issuer.Contains(Request.Host.Value))
-                {
-                    username = claim.Value;
-                }
-            }
-            if (!string.IsNullOrEmpty(username))
-            {
-                return _userService.Get<UserProfileViewModel>(username);
-            }
-
-            return null;
+            var username = User.GetJwtTokenUserName();
+            return _userService.Get<UserProfileViewModel>(username);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace A4CoreBlog.Web.Extensions
+namespace A4CoreBlog.Web
 {
     public static class CurrentUserExtensions
     {
@@ -16,6 +16,11 @@ namespace A4CoreBlog.Web.Extensions
 
             ClaimsPrincipal currentUser = user;
             return currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+        public static string GetJwtTokenUserName(this ClaimsPrincipal user)
+        {
+            return user.GetUserId();
         }
     }
 }
