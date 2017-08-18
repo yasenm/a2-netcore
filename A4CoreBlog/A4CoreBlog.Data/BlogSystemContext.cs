@@ -27,7 +27,10 @@ namespace A4CoreBlog.Data
         }
 
         public DbSet<Blog> Blogs { get; set; }
+        public DbSet<BlogComment> BlogComments { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<PostComment> PostComments { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<SystemImage> Images { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,25 +43,11 @@ namespace A4CoreBlog.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Ignore<IdentityUserLogin<string>>();
+
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Blog)
                 .WithOne(b => b.Owner)
                 .HasForeignKey<Blog>(b => b.OwnerId);
-            //modelBuilder.Entity<Blog>()
-            //    .HasOne(u => u.Owner)
-            //    .WithOne(u => u.Blog)
-            //    .HasForeignKey<User>(b => b.BlogId);
-
-            //modelBuilder.Entity<User>()
-            //    .HasMany(u => u.Posts)
-            //    .WithOne(p => p.Author)
-            //    .HasForeignKey(p => p.AuthorId);
-
-            //modelBuilder.Entity<Blog>()
-            //    .HasMany(b => b.Posts)
-            //    .WithOne(p => p.Blog)
-            //    .HasForeignKey(p => p.BlogId);
         }
     }
 }

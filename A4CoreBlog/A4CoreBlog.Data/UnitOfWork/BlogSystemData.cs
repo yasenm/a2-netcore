@@ -23,9 +23,12 @@ namespace A4CoreBlog.Data.UnitOfWork
         public IRepository<User> Users => GetRepository<User>();
 
         public IRepository<Blog> Blogs => GetDeletableEntityRepository<Blog>();
+        public IRepository<BlogComment> BlogComments => GetDeletableEntityRepository<BlogComment>();
 
         public IRepository<Post> Posts => GetDeletableEntityRepository<Post>();
+        public IRepository<PostComment> PostComments => GetDeletableEntityRepository<PostComment>();
 
+        public IRepository<Comment> Comments => GetDeletableEntityRepository<Comment>();
         public IRepository<SystemImage> Images => GetDeletableEntityRepository<SystemImage>();
 
         public int SaveChanges()
