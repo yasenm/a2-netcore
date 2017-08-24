@@ -9,6 +9,7 @@ import { UsersModule }  from "./users/users.module";
 import { PostsModule }  from "./posts/posts.module";
 import { SharedModule } from "./shared/shared.module";
 import { AuthModule } from "./auth/auth.module";
+import { CommentModule } from "./comments/comment.module";
 
 export const sharedConfig: NgModule = {
     bootstrap: [AppComponent],
@@ -26,6 +27,7 @@ export const sharedConfig: NgModule = {
         PostsModule,
         BlogsModule,
         UsersModule,
-        AuthModule
+        AuthModule,
+        CommentModule
     ]
 };

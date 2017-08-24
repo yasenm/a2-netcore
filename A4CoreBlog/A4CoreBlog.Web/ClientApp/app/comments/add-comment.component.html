@@ -1,0 +1,52 @@
+﻿<simple-loader *ngIf="loading"></simple-loader>
+
+<div class="row add-comment-container no-margin padding-10">
+    <div class="text-center col-md-12" *ngIf="!loggedIn">
+        <div>To leave comment please login...</div>
+        <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+    </div>
+
+    <div class="col-md-12 text-center" *ngIf="loggedIn && !loading">
+        <form name="comment-form"
+              (ngSubmit)="postComment(addCommentForm)"
+              #addCommentForm="ngForm"
+              novalidate>
+            <fieldset>
+                <div class="form-group"
+                     [ngClass]="{'has-danger' : (content.touched || content.dirty) && !content.valid}">
+                    <label class="form-control-label"
+                           for="content">
+                        Enter what you have in mind...
+                    </label>
+                    <textarea class="form-control"
+                            id="content"
+                            cols="40"
+                            rows="5"
+                            name="content"
+                            placeholder="Comment..."
+                            [(ngModel)]="model.content"
+                            #content="ngModel"
+                            required
+                            minlength="6"></textarea>
+                    <div class="form-control-feedback"
+                         *ngIf="(content.touched || content.dirty) && !content.valid">
+                        <span *ngIf="content.errors.required">
+                            content
+                        </span>
+                        <span *ngIf="content.errors.minlength">
+                            content length
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="serverError" class="alert alert-danger">{{serverError}}</div>
+                <div class="form-group">
+                    <button type="submit"
+                            [disabled]="!addCommentForm.valid"
+                            class="btn btn-primary">
+                        Add
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

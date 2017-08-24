@@ -1,0 +1,21 @@
+﻿<simple-loader *ngIf="!comments"></simple-loader>
+
+<div class="list-group" *ngIf="comments">
+    <div *ngFor="let comment of comments; let i = index"
+         class="list-group-item list-group-item-action row no-margin padding-10"
+         [ngClass]="{'active': i % 2 == 0}">
+        <div class="col-6">
+            <h4 class="list-group-item-heading">{{ comment.authorName }}</h4>
+        </div>
+        <div class="col-6 text-right">
+            From : {{ comment.createdOn | date:'MM/dd/yyyy HH:mm' }}
+        </div>
+        <div class="col-12">
+            <p class="list-group-item-text">{{ comment.content }}</p>
+        </div>
+    </div>
+</div>
+
+<div>
+    <add-comment [type]="type" [id]="id"></add-comment>
+</div>

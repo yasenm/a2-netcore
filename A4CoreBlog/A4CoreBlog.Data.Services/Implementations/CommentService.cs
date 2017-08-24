@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using A4CoreBlog.Data.ViewModels;
 
 namespace A4CoreBlog.Data.Services.Implementations
 {
@@ -41,6 +42,11 @@ namespace A4CoreBlog.Data.Services.Implementations
             return dbBlogComment.Id;
         }
 
+        public Task<int> AddBlogComment(PostACommentViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> AddPostComment<T>(T model, int postId)
         {
             var commentId = await Add(model);
@@ -52,6 +58,18 @@ namespace A4CoreBlog.Data.Services.Implementations
             _data.PostComments.Add(dbPostComment);
             await _data.SaveChangesAsync();
             return dbPostComment.Id;
+        }
+
+        public async Task<int> AddPostComment(PostACommentViewModel model)
+        {
+            var user = _data.Users.All().FirstOrDefault(u => u.UserName == model.AuthorName);
+            if (user !=null)
+            {
+                model.AuthorId = user.Id;
+                return await AddPostComment(model, model.ForId);
+            }
+
+            return 0;
         }
 
         public async Task<IQueryable<T>> GetAll<T>()

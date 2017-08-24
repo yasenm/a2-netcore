@@ -43,6 +43,7 @@ namespace A4CoreBlog.Data.Infrastructure.Mapping
                 cfg.CreateMap<SystemImage, AdminListImageViewModel>().ReverseMap();
 
                 // Comments
+                cfg.CreateMap<Comment, PostACommentViewModel>().ReverseMap();
                 cfg.CreateMap<BlogComment, BaseCommentViewModel>()
                     .ForMember(dest => dest.AuthorName, opt => opt.MapFrom(src => src.Comment.Author.UserName))
                     .ForMember(dest => dest.AuthorId, opt => opt.MapFrom(src => src.Comment.AuthorId))

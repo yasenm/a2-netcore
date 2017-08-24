@@ -1,4 +1,6 @@
-﻿namespace A4CoreBlog.Data.ViewModels
+﻿using System;
+
+namespace A4CoreBlog.Data.ViewModels
 {
     public class BaseCommentViewModel
     {
@@ -7,5 +9,6 @@
         public string AuthorId { get; set; }
         public string AuthorName { get; set; }
         public string Content { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }

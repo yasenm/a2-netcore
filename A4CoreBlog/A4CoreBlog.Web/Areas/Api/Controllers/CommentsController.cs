@@ -1,5 +1,6 @@
 ﻿using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -26,6 +27,29 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         {
             var result = await _comService.GetAllForPost<BaseCommentViewModel>(postId);
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddToPost([FromBody]PostACommentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.AuthorName = User.GetJwtTokenUserName();
+                var result = await _comService.AddPostComment(model);
+                if (result > 0)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToBlog(PostACommentViewModel model)
+        {
+            return null;
         }
     }
 }
