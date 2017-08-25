@@ -2,7 +2,7 @@
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public class RegistrationViewModel
+    public class RegistrationViewModel : IVIewModel
     {
         [Required]
         [EmailAddress]

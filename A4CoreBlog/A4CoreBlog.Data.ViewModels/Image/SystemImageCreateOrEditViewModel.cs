@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public class SystemImageCreateOrEditViewModel
+    public class SystemImageCreateOrEditViewModel : IVIewModel
     {
         public int? Id { get; set; }
         public byte[] Content { get; set; }

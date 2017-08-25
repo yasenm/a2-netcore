@@ -2,7 +2,7 @@
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public class BaseCommentViewModel
+    public class BaseCommentViewModel : IVIewModel
     {
         public int Id { get; set; }
         public int CommentId { get; set; }

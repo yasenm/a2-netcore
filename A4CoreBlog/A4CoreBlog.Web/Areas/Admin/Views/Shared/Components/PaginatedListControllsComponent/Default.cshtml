@@ -1,0 +1,30 @@
+﻿@using A4CoreBlog.Data.Infrastructure
+
+@model BasePaginatedList
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+@if (Model.HasPreviousPage || Model.HasNextPage)
+{
+    <div class="row">
+        <div class="col-md-6 padding-10 text-right">
+            <a asp-action="@Model.Action"
+               asp-controller="@Model.Controller"
+               asp-route-page="@(Model.PageIndex - 1)"
+               class="btn btn-outline-primary @prevDisabled">
+                Previous
+            </a>
+        </div>
+        <div class="col-md-6 padding-10">
+            <a asp-action="@Model.Action"
+               asp-controller="@Model.Controller"
+               asp-route-page="@(Model.PageIndex + 1)"
+               class="btn btn-primary @nextDisabled">
+                Next
+            </a>
+        </div>
+    </div>
+}

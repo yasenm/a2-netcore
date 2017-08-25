@@ -2,7 +2,7 @@
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public class PostListBasicViewModel
+    public class PostListBasicViewModel : IVIewModel
     {
         public int Id { get; set; }
         public string Summary { get; set; }

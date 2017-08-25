@@ -42,9 +42,16 @@ namespace A4CoreBlog.Data.Services.Implementations
             return dbBlogComment.Id;
         }
 
-        public Task<int> AddBlogComment(PostACommentViewModel model)
+        public async Task<int> AddBlogComment(PostACommentViewModel model)
         {
-            throw new NotImplementedException();
+            var user = _data.Users.All().FirstOrDefault(u => u.UserName == model.AuthorName);
+            if (user != null)
+            {
+                model.AuthorId = user.Id;
+                return await AddBlogComment(model, model.ForId);
+            }
+
+            return 0;
         }
 
         public async Task<int> AddPostComment<T>(T model, int postId)

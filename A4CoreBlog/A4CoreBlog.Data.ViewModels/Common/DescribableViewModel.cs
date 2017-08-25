@@ -2,7 +2,7 @@
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public abstract class DescribableViewModel
+    public abstract class DescribableViewModel : IVIewModel
     {
         [Required]
         [StringLength(5000, MinimumLength = 4)]

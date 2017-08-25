@@ -6,10 +6,12 @@
         <title>@ViewData["Title"] - A4CoreBlog_Web</title>
         <base href="/" />
         <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+        <link href="~/css/ng2-toastr.min.css" rel="stylesheet" />
     </head>
     <body>
         @RenderBody()
 
         @RenderSection("scripts", required: false)
+        <script src="~/js/ng2-toastr.min.js"></script>
     </body>
 </html>

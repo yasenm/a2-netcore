@@ -1,8 +1,10 @@
 ﻿using A4CoreBlog.Common;
+using A4CoreBlog.Data.Infrastructure;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace A4CoreBlog.Web.Areas.Admin.Controllers
 {
@@ -14,31 +16,32 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         {
             _postService = postService;
         }
-        
-        public IActionResult MyPosts()
+
+        public async Task<IActionResult> MyPosts(int? page)
         {
             var model = _postService.GetAll<PostListBasicViewModel>()
-                .Where(p => p.AuthorId == HttpContext.User.GetUserId())
-                .OrderBy(p => p.BlogId)
-                .ToList();
+                .Where(p => p.AuthorId == User.GetUserId())
+                .OrderBy(p => p.BlogId);
 
-            return View(model);
+            var result = await PaginatedList<PostListBasicViewModel>.CreateAsync(model, page ?? 1, 5);
+
+            return View(result);
         }
-        
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
             var model = _postService.Get<PostEditViewModel>(id);
             return View(model);
         }
-        
+
         [HttpGet]
         public IActionResult Create()
         {
             var model = new PostEditViewModel();
             return View("Edit", model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(PostEditViewModel model)
@@ -52,7 +55,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
             }
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(PostEditViewModel model)

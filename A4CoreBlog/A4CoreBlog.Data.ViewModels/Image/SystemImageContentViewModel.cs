@@ -1,6 +1,6 @@
 ﻿namespace A4CoreBlog.Data.ViewModels
 {
-    public class SystemImageContentViewModel
+    public class SystemImageContentViewModel : IVIewModel
     {
         public byte[] Content { get; set; }
     }

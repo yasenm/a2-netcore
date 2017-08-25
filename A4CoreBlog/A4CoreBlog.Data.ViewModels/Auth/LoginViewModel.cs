@@ -2,7 +2,7 @@
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public class LoginViewModel
+    public class LoginViewModel : IVIewModel
     {
         [Required]
         public string Username { get; set; }

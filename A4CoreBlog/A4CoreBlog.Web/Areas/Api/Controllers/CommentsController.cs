@@ -49,7 +49,17 @@ namespace A4CoreBlog.Web.Areas.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToBlog(PostACommentViewModel model)
         {
-            return null;
+            if (ModelState.IsValid)
+            {
+                model.AuthorName = User.GetJwtTokenUserName();
+                var result = await _comService.AddBlogComment(model);
+                if (result > 0)
+                {
+                    return Ok();
+                }
+            }
+
+            return BadRequest(ModelState);
         }
     }
 }

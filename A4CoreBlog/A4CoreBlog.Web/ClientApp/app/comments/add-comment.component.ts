@@ -1,9 +1,10 @@
-﻿import { Component, Input, OnInit } from "@angular/core";
+﻿import { Component, Input, OnInit, ViewContainerRef } from "@angular/core";
 import { NgForm } from "@angular/forms";
 
 import { AuthService } from "../shared/services/auth.service";
 import { AddComment } from "./add-comment";
 import { CommentsService } from "../shared/services/comments.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
     selector: 'add-comment',
@@ -19,8 +20,12 @@ export class AddCommentComponent implements OnInit {
     public model: AddComment = new AddComment();
 
     constructor(private _authService: AuthService,
-    private _comService: CommentsService) { }
-    
+        private _comService: CommentsService,
+        private toastr: ToastsManager,
+        private vcr: ViewContainerRef) {
+        this.toastr.setRootViewContainerRef(vcr);
+    }
+
     ngOnInit(): void {
         this.loggedIn = this._authService.isLoggedIn();
         this.eventsSubribing();
@@ -34,9 +39,12 @@ export class AddCommentComponent implements OnInit {
             .subscribe(res => {
                 console.log(res);
                 this.loading = false;
+                this.toastr.success("Thank you for the opignion!");
+                this.model = new AddComment();
             }, err => {
                 console.log(err);
                 this.loading = false;
+                this.toastr.error("Something went wrong!");
             });
     }
 

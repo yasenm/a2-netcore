@@ -15,6 +15,7 @@ var paths = {
 paths.bootstrapCss = "./bower_components/bootstrap/dist/css/bootstrap.css";
 paths.bootstrapThemeCss = "./bower_components/bootswatch/superhero/bootstrap.css";
 paths.tetherCss = "./bower_components/tether/dist/css/tether.css";
+paths.toastrCss = "./node_modules/ng2-toastr/bundles/ng2-toastr.min.css";
 paths.siteCss = "./areas/admin/css/site.css";
 
 paths.jqueryJs = "./bower_components/jquery/dist/jquery.js";
@@ -23,6 +24,7 @@ paths.jqueryValidationUnobtrusiveJs = "./bower_components/jquery-validation-unob
 paths.bootstrapJs = "./bower_components/bootstrap/dist/js/bootstrap.js";
 paths.bootboxJs = "./bower_components/bootbox.js/bootbox.js";
 paths.tetherJs = "./bower_components/tether/dist/js/tether.js";
+paths.toastrJs = "./node_modules/ng2-toastr/bundles/ng2-toastr.min.js";
 
 paths.app = "./areas/admin/js/app.js";
 paths.tmceJs = "./areas/admin/js/common/tmce.js";
@@ -37,6 +39,7 @@ gulp.task("min:js", function () {
         paths.tetherJs,
         paths.bootstrapJs,
         paths.bootboxJs,
+        paths.toastrJs,
         paths.app
     ])
         .pipe(concat(paths.jsDest + "/min/site.min.js"))
@@ -72,6 +75,7 @@ gulp.task("copy:js", function () {
         paths.tetherJs,
         paths.bootstrapJs,
         paths.bootboxJs,
+        paths.toastrJs,
         paths.app,
     ])
         .pipe(gulp.dest(paths.jsDest));
@@ -87,6 +91,7 @@ gulp.task("min:css", function () {
         paths.bootstrapCss,
         paths.bootstrapThemeCss,
         paths.tetherCss,
+        paths.toastrCss,
         paths.siteCss
     ])
         .pipe(concat(paths.cssDest + "/min/site.min.css"))
@@ -99,6 +104,7 @@ gulp.task("copy:css", function () {
         paths.bootstrapCss,
         paths.bootstrapThemeCss,
         paths.tetherCss,
+        paths.toastrCss,
         paths.siteCss
     ])
         .pipe(gulp.dest(paths.cssDest));

@@ -12,6 +12,8 @@ import { NavUserComponent } from "./navmenu/nav-user.component";
 import { AuthService } from "./services/auth.service";
 import { ValidationService } from "./services/validation.service";
 import { ProfileService } from "./services/profile.service";
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 @NgModule({
     imports: [
@@ -19,7 +21,9 @@ import { ProfileService } from "./services/profile.service";
         FormsModule,
         BrowserModule,
         NgxPaginationModule,
-        RouterModule
+        RouterModule,
+        NoopAnimationsModule,
+        ToastModule.forRoot()
     ],
     exports: [
         CommonModule,

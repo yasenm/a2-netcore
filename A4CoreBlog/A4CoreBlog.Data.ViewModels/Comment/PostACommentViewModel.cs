@@ -2,7 +2,7 @@
 
 namespace A4CoreBlog.Data.ViewModels
 {
-    public class PostACommentViewModel
+    public class PostACommentViewModel : IVIewModel
     {
         [MaxLength(1000)]
         public string Content { get; set; }
