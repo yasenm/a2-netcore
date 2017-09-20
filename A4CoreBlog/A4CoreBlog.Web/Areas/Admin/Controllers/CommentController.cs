@@ -1,4 +1,6 @@
-﻿using A4CoreBlog.Data.Services.Contracts;
+﻿using A4CoreBlog.Common;
+using A4CoreBlog.Data.Services.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -12,10 +14,17 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
         {
             _comService = comService;
         }
-
-        public async Task<IActionResult> Delete(int id)
+        
+        [HttpDelete]
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        public async Task<IActionResult> Delete(int id, string type, int forId)
         {
-            return View();
+            if (await _comService.Delete(id))
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
     }
 }

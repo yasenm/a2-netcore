@@ -22,6 +22,7 @@ namespace A4CoreBlog.Data.Services.Implementations
             try
             {
                 var dbModel = Mapper.Map<SystemImage>(model);
+                dbModel.CreatedOn = DateTime.Now;
                 _data.Images.Add(dbModel);
                 _data.SaveChanges();
                 model = Mapper.Map<T>(dbModel);
@@ -44,6 +45,7 @@ namespace A4CoreBlog.Data.Services.Implementations
         public IQueryable<T> GetCollection<T>()
         {
             var result = _data.Images.All()
+                .OrderByDescending(i => i.CreatedOn)
                 .ProjectTo<T>();
             return result;
         }

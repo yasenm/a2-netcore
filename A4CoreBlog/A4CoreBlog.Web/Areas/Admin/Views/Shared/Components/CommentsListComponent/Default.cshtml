@@ -1,0 +1,22 @@
+﻿@model ICollection<BaseCommentViewModel>
+
+<div class="row padding-10 no-margin">
+    @foreach (var comment in Model)
+    {
+        <div class="col-md-12 padding-10" id="comment-with-id-@comment.Id">
+            <div class="row">
+                <div class="col-md-10">
+                    <h4>@comment.AuthorName</h4>
+                    <p>@comment.Content</p>
+                </div>
+                <div class="col-md-2 text-center">
+                    <a href="@Url.Action("Delete", "Comment", new { @area = GlobalConstants.AdminArea, id = comment.CommentId })"
+                       class="btn btn-danger delete-item-comment"
+                       data-comment-id="@comment.Id">
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

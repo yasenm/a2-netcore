@@ -30,19 +30,27 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
+    <div class="comments-container">
+        @await Component.InvokeAsync(typeof(CommentsListComponent), new { @area = GlobalConstants.AdminArea, type = "post", forId = Model.Id })
+    </div>
 </div>
 
 @section scripts{
     <environment names="Development">
-        <script src="~/js/tinymce.min.js"></script>
+        <script src="~/js/comments/comments.js"></script>
         <script src="~/js/custom/tmce.js"></script>
     </environment>
 
     <environment names="Staging, Production">
         <script src="~/js/custom/min/site.min.js"></script>
+        <script src="~/js/custom/min/comments.min.js"></script>
     </environment>
 
     <script>
-        app.tinymce.textareaInit();
+        $(document).ready(function () {
+            app.tinymce.textareaInit();
+            app.comments.init();
+        });
     </script>
 }

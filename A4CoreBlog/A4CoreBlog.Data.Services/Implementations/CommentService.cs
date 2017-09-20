@@ -70,13 +70,37 @@ namespace A4CoreBlog.Data.Services.Implementations
         public async Task<int> AddPostComment(PostACommentViewModel model)
         {
             var user = _data.Users.All().FirstOrDefault(u => u.UserName == model.AuthorName);
-            if (user !=null)
+            if (user != null)
             {
                 model.AuthorId = user.Id;
                 return await AddPostComment(model, model.ForId);
             }
 
             return 0;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var bComment = _data.BlogComments.All().FirstOrDefault(bc => bc.CommentId == id);
+                if (bComment != null)
+                {
+                    _data.BlogComments.Delete(bComment.Id);
+                }
+                var pComment = _data.PostComments.All().FirstOrDefault(pc => pc.CommentId == id);
+                if (pComment != null)
+                {
+                    _data.PostComments.Delete(pComment.Id);
+                }
+                _data.Comments.Delete(id);
+                await _data.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         public async Task<IQueryable<T>> GetAll<T>()

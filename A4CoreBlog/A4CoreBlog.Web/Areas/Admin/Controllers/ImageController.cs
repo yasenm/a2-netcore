@@ -1,9 +1,11 @@
 ﻿using A4CoreBlog.Common;
+using A4CoreBlog.Data.Infrastructure;
 using A4CoreBlog.Data.Services.Contracts;
 using A4CoreBlog.Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace A4CoreBlog.Web.Areas.Admin.Controllers
 {
@@ -16,10 +18,12 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
             _sysImgService = sysImgService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? page)
         {
             var model = _sysImgService.GetCollection<AdminListImageViewModel>();
-            return View(model);
+
+            var result = await PaginatedList<AdminListImageViewModel>.CreateAsync(model, page ?? 1, 12);
+            return View(result);
         }
 
         [HttpGet]
@@ -43,7 +47,7 @@ namespace A4CoreBlog.Web.Areas.Admin.Controllers
                 model = _sysImgService.AddOrUpdate(model);
                 if (model.Id != 0)
                 {
-                    return RedirectToAction("Content", "Images", new { @area = GlobalConstants.APIArea, id = model.Id });
+                    return RedirectToAction("Index", "Image", new { @area = GlobalConstants.AdminArea });
                 }
             }
 

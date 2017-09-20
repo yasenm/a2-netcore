@@ -11,6 +11,7 @@ namespace A4CoreBlog.Data.Services.Contracts
         Task<int> AddBlogComment(PostACommentViewModel model);
         Task<int> AddPostComment<T>(T model, int blogId);
         Task<int> AddBlogComment<T>(T model, int postId);
+        Task<bool> Delete(int id);
         Task<IQueryable<T>> GetAll<T>();
         Task<IQueryable<T>> GetAllForBlog<T>(int blogId);
         Task<IQueryable<T>> GetAllForPost<T>(int postId);
